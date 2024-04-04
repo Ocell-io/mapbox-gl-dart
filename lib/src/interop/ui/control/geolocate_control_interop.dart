@@ -22,18 +22,6 @@ extension type GeolocateControlOptionsJsImpl._(JSObject _) implements JSObject {
   });
 }
 
-@JS('Foo')
-extension type FooJS._(JSObject _) implements JSObject {
-  external void baz(JSFunction callback);
-}
-
-class Foo {
-  final FooJS fooJs;
-
-  Foo({required this.fooJs});
-  void baz(Function(String e) callback) => fooJs.baz(callback.toJS);
-}
-
 @JS()
 @anonymous
 extension type PositionOptionsJsImpl._(JSObject _) implements JSObject {

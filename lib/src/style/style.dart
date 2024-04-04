@@ -140,8 +140,8 @@ class Style extends JsObjectWrapper<StyleJsImpl> {
   querySourceFeatures(String sourceID, dynamic params) =>
       jsObject.querySourceFeatures(sourceID, params);
 
-  addSourceType(String name, dynamic sourceType, Function callback) =>
-      jsObject.addSourceType(name, sourceType, callback.toJS);
+  addSourceType(String name, dynamic sourceType, JSFunction callback) =>
+      jsObject.addSourceType(name, sourceType, callback);
 
   getLight() => jsObject.getLight();
 
@@ -150,14 +150,14 @@ class Style extends JsObjectWrapper<StyleJsImpl> {
 
   // Callbacks from web workers
 
-  getImages(String mapId, dynamic params, Function callback) =>
-      jsObject.getImages(mapId, params, callback.toJS);
+  getImages(String mapId, dynamic params, JSFunction callback) =>
+      jsObject.getImages(mapId, params, callback);
 
-  getGlyphs(String mapId, dynamic params, Function callback) =>
-      jsObject.getGlyphs(mapId, params, callback.toJS);
+  getGlyphs(String mapId, dynamic params, JSFunction callback) =>
+      jsObject.getGlyphs(mapId, params, callback);
 
-  getResource(String mapId, RequestParameters params, Function callback) =>
-      jsObject.getResource(mapId, params.jsObject, callback.toJS);
+  getResource(String mapId, RequestParameters params, JSFunction callback) =>
+      jsObject.getResource(mapId, params.jsObject, callback);
 
   /// Creates a new Style from a [jsObject].
   Style.fromJsObject(StyleJsImpl jsObject) : super.fromJsObject(jsObject);

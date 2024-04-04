@@ -536,8 +536,6 @@ class MapboxMap extends Camera {
   MapboxMap addSource(String id, Object source) {
     if (source is Source) {
       return MapboxMap.fromJsObject(jsObject.addSource(id, source.jsObject));
-    }else if (source is JSAny && source.isA<MapboxMapJsImpl>()) {
-      return MapboxMap.fromJsObject(jsObject.addSource(id, source));
     }
 
     return MapboxMap.fromJsObject(jsObject.addSource(id, source.jsify()!));
@@ -565,8 +563,9 @@ class MapboxMap extends Camera {
   ///  @param {string} name The name of the source type; source definition objects use this name in the `{type: ...}` field.
   ///  @param {Function} SourceType A {@link Source} constructor.
   ///  @param {Function} callback Called when the source type is ready or with an error argument if there is an error.
-  addSourceType(String name, dynamic sourceType, Function callback) =>
-      jsObject.addSourceType(name, sourceType, callback.toJS);
+  addSourceType(String name, JSFunction sourceType, JSFunction callback) =>
+      jsObject.addSourceType(name, sourceType, callback); //TODO remove js function and add proper dart function
+    
 
   ///  Removes a source from the map's style.
   ///
@@ -706,7 +705,7 @@ class MapboxMap extends Camera {
   ///  });
   ///
   ///  @see [Add an icon to the map](https://www.mapbox.com/mapbox-gl-js/example/add-image/)
-  loadImage(String url, Function callback) =>
+  loadImage(String url, void Function(JSAny error, JSAny image) callback) =>
       jsObject.loadImage(url, callback.toJS);
 
   //////
@@ -1279,7 +1278,7 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
     bool? renderWorldCopies,
     num? maxTileCacheSize,
     String? localIdeographFontFamily,
-    Function(String url, String resourceType)? transformRequest, //TODO: Remove JsImpl
+    JSAny Function(String url, String resourceType)? transformRequest,
     bool? collectResourceTiming,
     num? fadeDuration,
     bool? crossSourceCollisions,

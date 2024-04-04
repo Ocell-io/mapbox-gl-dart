@@ -6,7 +6,7 @@ import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 typedef Listener = dynamic Function(Event object);
-typedef GeoListener = dynamic Function(dynamic object);
+typedef GeoListener = JSAny Function(JSAny object);
 
 class Event extends JsObjectWrapper<EventJsImpl> {
   String get id => jsObject.id;
