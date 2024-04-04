@@ -1,8 +1,10 @@
 library mapboxgl.ui.popup;
 
-import 'package:web/web.dart';
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
+import 'package:web/web.dart';
 
 /// A popup component.
 ///
@@ -196,7 +198,7 @@ class PopupOptions extends JsObjectWrapper<PopupOptionsJsImpl> {
     bool? closeButton,
     bool? closeOnClick,
     String? anchor,
-    dynamic offset,
+    Object? offset,
     String? className,
     String? maxWidth,
   }) =>
@@ -205,7 +207,8 @@ class PopupOptions extends JsObjectWrapper<PopupOptionsJsImpl> {
         closeButton: closeButton,
         closeOnClick: closeOnClick,
         anchor: anchor,
-        offset: offset,
+        offset: (offset ?? 0)
+            .jsify(), // note that this is required as we cannot pass undefined
         className: className,
         maxWidth: maxWidth,
       ));

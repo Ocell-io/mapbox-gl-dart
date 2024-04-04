@@ -34,10 +34,11 @@ class Feature extends JsObjectWrapper<FeatureJsImpl> {
   Geometry get geometry => Geometry.fromJsObject(jsObject.geometry);
   Map<String, dynamic> get properties {
     final converted = jsObject.properties.dartify();
-    if (converted == null || converted is! Map<String, dynamic>) {
-      return {};
+
+    if (converted is Map) {
+      return Map<String, dynamic>.from(converted);
     }
-    return converted;
+    return {};
   }
 
   String get source => jsObject.source;

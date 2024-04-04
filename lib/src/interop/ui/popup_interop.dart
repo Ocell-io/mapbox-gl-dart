@@ -188,7 +188,7 @@ extension type PopupOptionsJsImpl._(JSObject _) implements JSObject {
     bool? closeButton,
     bool? closeOnClick,
     String? anchor,
-    JSAny offset,
+    JSAny? offset,
     String? className,
     String? maxWidth,
   });
