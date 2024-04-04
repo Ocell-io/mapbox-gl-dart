@@ -2,11 +2,9 @@ library mapboxgl.ui.map;
 
 import 'dart:js_interop';
 
-import 'package:web/web.dart';
-import 'dart:js';
-import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
+import 'package:web/web.dart';
 
 ///  The `MapboxMap` object represents the map on your page. It exposes methods
 ///  and properties that enable you to programmatically change the map,
@@ -415,8 +413,9 @@ class MapboxMap extends Camera {
           .map((dynamic f) => Feature.fromJsObject(f))
           .toList();
     }
+    //TODO: remove jsify
     return jsObject
-        .queryRenderedFeatures(geometry, jsify(options)).toDart
+        .queryRenderedFeatures(geometry, options.jsify()).toDart 
         .map((dynamic f) => Feature.fromJsObject(f))
         .toList();
   }
@@ -534,11 +533,14 @@ class MapboxMap extends Camera {
   ///  @see Vector source: [Show and hide layers](https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/)
   ///  @see GeoJSON source: [Add live realtime data](https://docs.mapbox.com/mapbox-gl-js/example/live-geojson/)
   ///  @see Raster DEM source: [Add hillshading](https://docs.mapbox.com/mapbox-gl-js/example/hillshade/)
-  MapboxMap addSource(String id, dynamic source) {
+  MapboxMap addSource(String id, Object source) {
     if (source is Source) {
       return MapboxMap.fromJsObject(jsObject.addSource(id, source.jsObject));
+    }else if (source is JSAny && source.isA<MapboxMapJsImpl>()) {
+      return MapboxMap.fromJsObject(jsObject.addSource(id, source));
     }
-    return MapboxMap.fromJsObject(jsObject.addSource(id, jsify(source)));
+
+    return MapboxMap.fromJsObject(jsObject.addSource(id, source.jsify()!));
   }
 
   ///  Returns a Boolean indicating whether the source is loaded.
@@ -640,11 +642,11 @@ class MapboxMap extends Camera {
   ///  @see Use `ImageData`: [Add a generated icon to the map](https://www.mapbox.com/mapbox-gl-js/example/add-image-generated/)
   addImage(String id, dynamic image, [Map<String, dynamic>? options]) {
     if (image is Map) {
-      image = jsify(image);
+      image = image.jsify();
     }
     return options == null
         ? jsObject.addImage(id, image)
-        : jsObject.addImage(id, image, jsify(options));
+        : jsObject.addImage(id, image, options.jsify());
   }
 
   ///  Update an existing image in a style. This image can be displayed on the map like any other icon in the style's
@@ -753,12 +755,12 @@ class MapboxMap extends Camera {
   ///  @see [Create and style clusters](https://www.mapbox.com/mapbox-gl-js/example/cluster/)
   ///  @see [Add a vector tile source](https://www.mapbox.com/mapbox-gl-js/example/vector-source/)
   ///  @see [Add a WMS source](https://www.mapbox.com/mapbox-gl-js/example/wms/)
-  MapboxMap addLayer(dynamic layer, [String? beforeId]) {
+  MapboxMap addLayer(Object layer, [String? beforeId]) {
     if (layer is Layer) {
       return MapboxMap.fromJsObject(
           jsObject.addLayer(layer.jsObject, beforeId));
     }
-    return MapboxMap.fromJsObject(jsObject.addLayer(jsify(layer), beforeId));
+    return MapboxMap.fromJsObject(jsObject.addLayer(layer.jsify()!, beforeId));
   }
 
   //jsObject.addLayer(layer.jsObject ?? jsify(layer));
@@ -861,9 +863,9 @@ class MapboxMap extends Camera {
   ///  @see [Change a layer's color with buttons](https://www.mapbox.com/mapbox-gl-js/example/color-switcher/)
   ///  @see [Adjust a layer's opacity](https://www.mapbox.com/mapbox-gl-js/example/adjust-layer-opacity/)
   ///  @see [Create a draggable point](https://www.mapbox.com/mapbox-gl-js/example/drag-a-point/)
-  setPaintProperty(String layerId, String name, dynamic value,
+  void setPaintProperty(String layerId, String name, Object value,
           [StyleSetterOptions? options]) =>
-      jsObject.setPaintProperty(layerId, name, jsify(value));
+      jsObject.setPaintProperty(layerId, name, value.jsify()!);
 
   ///  Returns the value of a paint property in the specified style layer.
   ///
@@ -1222,8 +1224,8 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
 
   /// A callback run before the MapboxMap makes a request for an external URL. The callback can be used to modify the url, set headers, or set the credentials property for cross-origin requests.
   /// Expected to return an object with a `url` property and optionally `headers` and `credentials` properties.
-  RequestTransformFunctionJsImpl get transformRequest =>
-      jsObject.transformRequest; //TODO: Remove JsImpl
+ void transformRequest(String url, String resourceType) =>
+      jsObject.transformRequest.callAsFunction(url.toJS, resourceType.toJS); 
 
   /// If `true`, Resource Timing API information will be collected for requests made by GeoJSON and Vector Tile web workers (this information is normally inaccessible from the main Javascript thread). Information will be returned in a `resourceTiming` property of relevant `data` events.
   bool get collectResourceTiming => jsObject.collectResourceTiming;
@@ -1277,7 +1279,7 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
     bool? renderWorldCopies,
     num? maxTileCacheSize,
     String? localIdeographFontFamily,
-    JsFunction? transformRequest, //TODO: Remove JsImpl
+    Function(String url, String resourceType)? transformRequest, //TODO: Remove JsImpl
     bool? collectResourceTiming,
     num? fadeDuration,
     bool? crossSourceCollisions,
@@ -1321,7 +1323,7 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
         renderWorldCopies: renderWorldCopies,
         maxTileCacheSize: maxTileCacheSize,
         localIdeographFontFamily: localIdeographFontFamily,
-        transformRequest: transformRequest,
+        transformRequest: transformRequest?.toJS,
         collectResourceTiming: collectResourceTiming,
         fadeDuration: fadeDuration,
         crossSourceCollisions: crossSourceCollisions,

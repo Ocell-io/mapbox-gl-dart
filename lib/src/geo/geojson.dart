@@ -4,7 +4,6 @@ import 'dart:js_interop';
 
 import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
-import 'package:mapbox_gl_dart/src/utils.dart';
 
 class FeatureCollection extends JsObjectWrapper<FeatureCollectionJsImpl> {
   String get type => jsObject.type;
@@ -33,7 +32,14 @@ class Feature extends JsObjectWrapper<FeatureJsImpl> {
 
   String get type => jsObject.type;
   Geometry get geometry => Geometry.fromJsObject(jsObject.geometry);
-  Map<String, dynamic> get properties => dartifyMap(jsObject.properties);
+  Map<String, dynamic> get properties {
+    final converted = jsObject.properties.dartify();
+    if (converted == null || converted is! Map<String, dynamic>) {
+      return {};
+    }
+    return converted;
+  }
+
   String get source => jsObject.source;
 
   factory Feature({
@@ -44,9 +50,11 @@ class Feature extends JsObjectWrapper<FeatureJsImpl> {
   }) =>
       Feature.fromJsObject(FeatureJsImpl(
         type: 'Feature',
-        id: id,
+        id: id ?? 0,
         geometry: geometry.jsObject,
-        properties: properties == null ? jsify({}) : jsify(properties),
+        properties: properties == null
+            ? jsify({})
+            : jsify(properties), // TODO: Remove jsify
         source: source,
       ));
 
@@ -60,8 +68,9 @@ class Feature extends JsObjectWrapper<FeatureJsImpl> {
         type: 'Feature',
         id: id ?? this.id,
         geometry: geometry != null ? geometry.jsObject : this.geometry.jsObject,
-        properties:
-            properties != null ? jsify(properties) : jsify(this.properties),
+        properties: properties != null
+            ? jsify(properties)
+            : jsify(this.properties), // TODO: Remove jsify
         source: source ?? this.source,
       ));
 
