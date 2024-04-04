@@ -997,14 +997,14 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   /// e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar, where foo
   /// is a custom parameter and bar is an arbitrary hash distinct from the map hash.
   /// `bool` or `String`
-  external JSAny hash;
+  external JSAny? hash;
 
   /// If `false`, no mouse, touch, or keyboard listeners will be attached to the map, so it will not respond to interaction.
   external bool interactive;
 
   /// The HTML element in which Mapbox GL JS will render the map, or the element's string `id`. The specified element must have no children.
   /// `HTMLElement` or `String`
-  external JSAny container;
+  external JSAny? container;
 
   /// The threshold, measured in degrees, that determines when the map's
   /// bearing will snap to north. For example, with a `bearingSnap` of 7, if the user rotates
@@ -1022,7 +1022,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
 
   /// String or strings to show in an {@link AttributionControl}. Only applicable if `options.attributionControl` is `true`.
   /// `String` or `JSArray<JSString>`
-  external JSAny customAttribution;
+  external JSAny? customAttribution;
 
   /// A string representing the position of the Mapbox wordmark on the map. Valid options are `top-left`,`top-right`, `bottom-left`, `bottom-right`.
   external String logoPosition;
@@ -1079,7 +1079,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   ///
   ///  Tilesets hosted with Mapbox can be style-optimized if you append `?optimize=true` to the end of your style URL, like `mapbox://styles/mapbox/streets-v11?optimize=true`.
   ///  Learn more about style-optimized vector tiles in our [API documentation](https://www.mapbox.com/api-documentation/maps/#retrieve-tiles).
-  external JSAny style;
+  external JSAny? style;
 
   /// If `true`, the "box zoom" interaction is enabled (see {@link BoxZoomHandler}).
   external bool boxZoom;
@@ -1088,7 +1088,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external bool dragRotate;
 
   /// If `true`, the "drag to pan" interaction is enabled. An `Object` value is passed as options to {@link DragPanHandler#enable}.
-  external JSAny dragPan;
+  external JSAny? dragPan;
 
   /// If `true`, keyboard shortcuts are enabled (see {@link KeyboardHandler}).
   external bool keyboard;
@@ -1118,7 +1118,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external LngLatBoundsJsImpl bounds;
 
   /// A [`fitBounds`](#map#fitbounds) options object to use _only_ when fitting the initial `bounds` provided above.
-  external JSAny fitBoundsOptions;
+  external JSAny? fitBoundsOptions;
 
   /// If `true`, multiple copies of the world will be rendered side by side beyond -180 and 180 degrees longitude. If set to `false`:
   /// - When the map is zoomed out far enough that a single representation of the world does not fill the map's entire
@@ -1154,17 +1154,17 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external String accessToken;
 
   /// A patch to apply to the default localization table for UI strings, e.g. control tooltips. The `locale` object maps namespaced UI string IDs to translated strings in the target language; see `src/ui/default_locale.js` for an example with all supported string IDs. The object may specify all UI strings (thereby adding support for a new translation) or only a subset of strings (thereby patching the default translation table).
-  external JSAny locale;
+  external JSAny? locale;
 
   external factory MapOptionsJsImpl({
-    JSAny hash,
+    JSAny? hash,
     bool? interactive,
-    JSAny container,
+    JSAny? container,
     num? bearingSnap,
     bool? pitchWithRotate,
     bool? clickTolerance,
     bool? attributionControl,
-    JSAny customAttribution,
+    JSAny? customAttribution,
     String? logoPosition,
     bool? failIfMajorPerformanceCaveat,
     bool? preserveDrawingBuffer,
