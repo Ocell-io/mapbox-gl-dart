@@ -1,12 +1,12 @@
 @JS('mapboxgl')
 library mapboxgl.style.interop.sources.geojson_source;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 @JS()
 @anonymous
-class GeoJsonSourceJsImpl {
+extension type GeoJsonSourceJsImpl._(JSObject _) implements JSObject {
   external FeatureCollectionJsImpl get data;
   external factory GeoJsonSourceJsImpl({
     String? type,

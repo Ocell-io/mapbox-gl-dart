@@ -1,5 +1,7 @@
 library mapboxgl.geo.lng_lat;
 
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
@@ -47,7 +49,8 @@ class LngLat extends JsObjectWrapper<LngLatJsImpl> {
   ///  @example
   ///  var ll = new mapboxgl.LngLat(-73.9749, 40.7736);
   ///  ll.toArray(); // = [-73.9749, 40.7736]
-  List<num> toArray() => jsObject.toArray();
+  List<num> toArray() =>
+      jsObject.toArray().toDart.map((e) => e.toDartDouble).toList();
 
   ///  Returns the coordinates represent as a string.
   ///

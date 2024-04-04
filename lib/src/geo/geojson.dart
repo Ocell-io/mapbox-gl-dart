@@ -1,5 +1,7 @@
 library mapboxgl.geo.geojson;
 
+import 'dart:js_interop';
+
 import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 import 'package:mapbox_gl_dart/src/utils.dart';
@@ -7,14 +9,14 @@ import 'package:mapbox_gl_dart/src/utils.dart';
 class FeatureCollection extends JsObjectWrapper<FeatureCollectionJsImpl> {
   String get type => jsObject.type;
   List<Feature> get features =>
-      jsObject.features.map((f) => Feature.fromJsObject(f)).toList();
+      jsObject.features.toDart.map((f) => Feature.fromJsObject(f)).toList();
 
   factory FeatureCollection({
     required List<Feature> features,
   }) {
     return FeatureCollection.fromJsObject(FeatureCollectionJsImpl(
       type: 'FeatureCollection',
-      features: features.map((f) => f.jsObject).toList(),
+      features: features.map((f) => f.jsObject).toList().toJS,
     ));
   }
 

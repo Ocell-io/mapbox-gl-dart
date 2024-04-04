@@ -1,27 +1,26 @@
 @JS('mapboxgl')
 library mapboxgl.interop.style.style_image;
 
-import 'package:js/js.dart';
-import 'package:mapbox_gl_dart/src/interop/interop.dart';
+import 'dart:js_interop';
 
 @JS()
 @anonymous
-abstract class StyleImageJsImpl {
-  external dynamic get data;
-  external num get pixelRatio;
-  external bool get sdf;
-  external num get version;
-  external bool get hasRenderCallback;
-  external StyleImageInterfaceJsImpl get userImage;
+extension type StyleImageJsImpl._(JSObject _) implements JSObject {
+  external JSAny data;
+  external num pixelRatio;
+  external bool sdf;
+  external num version;
+  external bool hasRenderCallback;
+  external StyleImageInterfaceJsImpl userImage;
 }
 
 @JS()
 @anonymous
-abstract class StyleImageInterfaceJsImpl {
-  external num get width;
-  external num get height;
-  external dynamic get data;
-  external Function get render;
-  external Function(MapboxMapJsImpl map, String id) get onAdd;
-  external Function get onRemove;
+extension type StyleImageInterfaceJsImpl._(JSObject _) implements JSObject {
+  external num width;
+  external num height;
+  external JSAny data;
+  external JSFunction render;
+  external JSFunction onAdd;
+  external JSFunction onRemove;
 }

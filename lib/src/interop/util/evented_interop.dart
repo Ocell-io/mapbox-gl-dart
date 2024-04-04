@@ -1,33 +1,31 @@
 @JS('mapboxgl')
 library mapboxgl.interop.util.evented;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
-
-typedef ListenerJsImpl = dynamic Function(EventJsImpl object);
 
 @JS()
 @anonymous
-abstract class EventJsImpl {
+extension type EventJsImpl._(JSObject _) implements JSObject {
   external String get id;
   external String get type;
   external LngLatJsImpl get lngLat;
-  external List<FeatureJsImpl> get features;
+  external JSArray<FeatureJsImpl> get features;
   external PointJsImpl get point;
 
   external factory EventJsImpl({
     String? id,
     String? type,
     LngLatJsImpl? lngLat,
-    List<FeatureJsImpl?>? features,
+    JSArray<FeatureJsImpl?>? features,
     PointJsImpl? point,
   });
 
-  external preventDefault();
+  external void preventDefault();
 }
 
 @JS('Evented')
-abstract class EventedJsImpl {
+extension type EventedJsImpl._(JSObject _) implements JSObject {
   ///  Adds a listener to a specified event type.
   ///
   ///  @param {string} type The event type to add a listen for.
@@ -37,7 +35,7 @@ abstract class EventedJsImpl {
   ///  @returns {Object} `this`
   //external on(String type, Listener listener);
   external MapboxMapJsImpl on(String type,
-      [dynamic layerIdOrListener, ListenerJsImpl? listener]);
+      [JSAny layerIdOrListener, JSFunction? listener]);
 
   ///  Removes a previously registered event listener.
   ///
@@ -46,7 +44,7 @@ abstract class EventedJsImpl {
   ///  @returns {Object} `this`
   //external off(String type, Listener listener);
   external MapboxMapJsImpl off(String type,
-      [dynamic layerIdOrListener, ListenerJsImpl? listener]);
+      [JSAny layerIdOrListener, JSFunction? listener]);
 
   ///  Adds a listener that will be called only once to a specified event type.
   ///
@@ -55,21 +53,21 @@ abstract class EventedJsImpl {
   ///  @param {string} type The event type to listen for.
   ///  @param {Function} listener The function to be called when the event is fired the first time.
   ///  @returns {Object} `this`
-  external MapboxMapJsImpl once(String type, ListenerJsImpl listener);
+  external MapboxMapJsImpl once(String type, JSFunction listener);
 
-  external fire(EventJsImpl event, [dynamic properties]);
+  external void fire(EventJsImpl event, [JSAny properties]);
 
   ///  Returns a true if this instance of Evented or any forwardeed instances of Evented have a listener for the specified type.
   ///
   ///  @param {string} type The event type
   ///  @returns {boolean} `true` if there is at least one registered listener for specified event type, `false` otherwise
   ///  @private
-  external listens(String type);
+  external bool listens(String type);
 
   ///  Bubble all events fired by this instance of Evented to this parent instance of Evented.
   ///
   ///  @private
   ///  @returns {Object} `this`
   ///  @private
-  external setEventedParent([EventedJsImpl? parent, dynamic data]);
+  external EventedJsImpl setEventedParent([EventedJsImpl? parent, JSAny data]);
 }

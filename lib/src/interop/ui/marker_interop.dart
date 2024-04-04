@@ -1,8 +1,8 @@
 @JS('mapboxgl')
 library mapboxgl.interop.ui.marker;
 
-import 'dart:html';
-import 'package:js/js.dart';
+import 'package:web/web.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 /// Creates a marker component
@@ -23,7 +23,7 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 /// @see [Add custom icons with Markers](https://www.mapbox.com/mapbox-gl-js/example/custom-marker-icons/)
 /// @see [Create a draggable Marker](https://www.mapbox.com/mapbox-gl-js/example/drag-a-marker/)
 @JS('Marker')
-class MarkerJsImpl extends EventedJsImpl {
+extension type MarkerJsImpl._(EventedJsImpl _) implements EventedJsImpl {
   external factory MarkerJsImpl([MarkerOptionsJsImpl? options]);
 
   ///  Attaches the marker to a map
@@ -53,7 +53,7 @@ class MarkerJsImpl extends EventedJsImpl {
 
   ///  Returns the `Marker`'s HTML element.
   ///  @returns {HtmlElement} element
-  external HtmlElement getElement();
+  external HTMLElement getElement();
 
   ///  Binds a Popup to the Marker
   ///  @param popup an instance of the `Popup` class. If undefined or null, any popup
@@ -117,9 +117,9 @@ class MarkerJsImpl extends EventedJsImpl {
 
 @JS()
 @anonymous
-class MarkerOptionsJsImpl {
+extension type MarkerOptionsJsImpl._(JSObject _) implements JSObject {
   external factory MarkerOptionsJsImpl({
-    HtmlElement? element,
+    Element? element,
     PointJsImpl? offset,
     String? anchor,
     String? color,

@@ -1,7 +1,7 @@
 @JS()
 library mapboxgl.interop.js;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 /// This class is a wrapper for the jsObject. All the specific JsObject
 /// wrappers extend from it.
@@ -14,4 +14,4 @@ abstract class JsObjectWrapper<T> {
 }
 
 @JS('Object.keys')
-external List<String> objectKeys(Object? obj);
+external JSArray<JSString> objectKeys(JSAny? obj);

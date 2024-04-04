@@ -1,8 +1,9 @@
 @JS('mapboxgl')
 library mapboxgl.interop.ui.control.logo_control;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
+import 'package:web/web.dart';
 
 /// A `LogoControl` is a control that adds the Mapbox watermark
 /// to the map as required by the [terms of service](https://www.mapbox.com/tos/) for Mapbox
@@ -11,12 +12,12 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 /// @implements {IControl}
 /// @private
 @JS('LogoControl')
-class LogoControlJsImpl {
+extension type LogoControlJsImpl._(JSObject _) implements JSObject {
   external factory LogoControlJsImpl();
 
-  external onAdd(MapboxMapJsImpl map);
+  external HTMLElement onAdd(MapboxMapJsImpl map);
 
-  external onRemove();
+  external void onRemove();
 
-  external getDefaultPosition();
+  external String getDefaultPosition();
 }

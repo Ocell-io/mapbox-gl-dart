@@ -1,7 +1,7 @@
 @JS('mapboxgl')
 library mapboxgl.interop.geo.lng_lat_bounds;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 ///  A `LngLatBounds` object represents a geographical bounding box,
@@ -20,9 +20,9 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 ///  var ne = new mapboxgl.LngLat(-73.9397, 40.8002);
 ///  var llb = new mapboxgl.LngLatBounds(sw, ne);
 @JS('LngLatBounds')
-class LngLatBoundsJsImpl {
-  external LngLatJsImpl get sw;
-  external LngLatJsImpl get ne;
+extension type LngLatBoundsJsImpl._(JSObject _) implements JSObject {
+  external LngLatJsImpl sw;
+  external LngLatJsImpl ne;
 
   external factory LngLatBoundsJsImpl(
     LngLatJsImpl sw,
@@ -45,7 +45,7 @@ class LngLatBoundsJsImpl {
   ///
   ///  @param {LngLat|LngLatBounds} obj object to extend to
   ///  @returns {LngLatBounds} `this`
-  external LngLatBoundsJsImpl extend(dynamic obj);
+  external LngLatBoundsJsImpl extend(JSAny obj);
 
   ///  Returns the geographical coordinate equidistant from the bounding box's corners.
   ///
@@ -102,16 +102,7 @@ class LngLatBoundsJsImpl {
   ///  @example
   ///  var llb = new mapboxgl.LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
   ///  llb.toArray(); // = [[-73.9876, 40.7661], [-73.9397, 40.8002]]
-  external List<List<num>> toArray();
-
-  ///  Return the bounding box represented as a string.
-  ///
-  ///  @returns {string} The bounding box represents as a string of the format
-  ///    `'LngLatBounds(LngLat(lng, lat), LngLat(lng, lat))'`.
-  ///  @example
-  ///  var llb = new mapboxgl.LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
-  ///  llb.toString(); // = "LngLatBounds(LngLat(-73.9876, 40.7661), LngLat(-73.9397, 40.8002))"
-  external String toString();
+  external JSArray<JSArray<JSNumber>> toArray();
 
   ///  Check if the bounding box is an empty/`null`-type box.
   ///
@@ -136,5 +127,5 @@ class LngLatBoundsJsImpl {
   ///  var arr = [[-73.9876, 40.7661], [-73.9397, 40.8002]];
   ///  var llb = mapboxgl.LngLatBounds.convert(arr);
   ///  llb;   // = LngLatBounds {_sw: LngLat {lng: -73.9876, lat: 40.7661}, _ne: LngLat {lng: -73.9397, lat: 40.8002}}
-  external static LngLatBoundsJsImpl convert(dynamic input);
+  external static LngLatBoundsJsImpl convert(JSAny input);
 }

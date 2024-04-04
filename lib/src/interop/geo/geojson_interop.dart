@@ -1,44 +1,43 @@
 @JS('mapboxgl')
 library mapboxgl.interop.geo.geojson;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 @JS()
 @anonymous
-class FeatureCollectionJsImpl {
-  external String get type;
-  external List<FeatureJsImpl> get features;
+extension type FeatureCollectionJsImpl._(JSObject _) implements JSObject {
+  external String type;
+  external JSArray<FeatureJsImpl> features;
   external factory FeatureCollectionJsImpl({
     String type,
-    List<FeatureJsImpl> features,
+    JSArray<FeatureJsImpl> features,
   });
 }
 
 @JS()
 @anonymous
-class FeatureJsImpl {
-  external num get id;
-  external set id(num id);
-  external String get type;
-  external GeometryJsImpl get geometry;
-  external dynamic get properties;
-  external String get source;
+extension type FeatureJsImpl._(JSObject _) implements JSObject {
+  external num id;
+  external String type;
+  external GeometryJsImpl geometry;
+  external JSAny properties;
+  external String source;
   external factory FeatureJsImpl({
-    num? id,
+    num id,
     String? type,
     GeometryJsImpl geometry,
-    dynamic properties,
+    JSAny properties,
     String? source,
   });
 }
 
 @JS()
 @anonymous
-class GeometryJsImpl {
-  external String get type;
-  external dynamic get coordinates;
+extension type GeometryJsImpl._(JSObject _) implements JSObject {
+  external String type;
+  external JSAny coordinates;
   external factory GeometryJsImpl({
     String? type,
-    dynamic coordinates,
+    JSAny coordinates,
   });
 }

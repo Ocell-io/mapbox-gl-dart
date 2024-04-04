@@ -1,8 +1,8 @@
 @JS('mapboxgl')
 library mapboxgl.interop.ui.map;
 
-import 'dart:html';
-import 'package:js/js.dart';
+import 'package:web/web.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 ///  The `MapboxMap` object represents the map on your page. It exposes methods
@@ -36,40 +36,40 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 ///  ```
 ///  @see [Display a map](https://www.mapbox.com/mapbox-gl-js/examples/)
 @JS('Map')
-class MapboxMapJsImpl extends CameraJsImpl {
+extension type MapboxMapJsImpl._(CameraJsImpl _) implements CameraJsImpl {
   external factory MapboxMapJsImpl(MapOptionsJsImpl options);
 
-  external StyleJsImpl get style;
-  external dynamic get painter;
+  external StyleJsImpl style;
+  external JSAny painter;
 
   ///  The map's {@link ScrollZoomHandler}, which implements zooming in and out with a scroll wheel or trackpad.
   ///  Find more details and examples using `scrollZoom` in the {@link ScrollZoomHandler} section.
-  external ScrollZoomHandlerJsImpl get scrollZoom;
+  external ScrollZoomHandlerJsImpl scrollZoom;
 
   ///  The map's {@link BoxZoomHandler}, which implements zooming using a drag gesture with the Shift key pressed.
   ///  Find more details and examples using `boxZoom` in the {@link BoxZoomHandler} section.
-  external BoxZoomHandlerJsImpl get boxZoom;
+  external BoxZoomHandlerJsImpl boxZoom;
 
   ///  The map's {@link DragRotateHandler}, which implements rotating the map while dragging with the right
   ///  mouse button or with the Control key pressed. Find more details and examples using `dragRotate`
   ///  in the {@link DragRotateHandler} section.
-  external DragRotateHandlerJsImpl get dragRotate;
+  external DragRotateHandlerJsImpl dragRotate;
 
   ///  The map's {@link DragPanHandler}, which implements dragging the map with a mouse or touch gesture.
   ///  Find more details and examples using `dragPan` in the {@link DragPanHandler} section.
-  external DragPanHandlerJsImpl get dragPan;
+  external DragPanHandlerJsImpl dragPan;
 
   ///  The map's {@link KeyboardHandler}, which allows the user to zoom, rotate, and pan the map using keyboard
   ///  shortcuts. Find more details and examples using `keyboard` in the {@link KeyboardHandler} section.
-  external KeyboardHandlerJsImpl get keyboard;
+  external KeyboardHandlerJsImpl keyboard;
 
   ///  The map's {@link DoubleClickZoomHandler}, which allows the user to zoom by double clicking.
   ///  Find more details and examples using `doubleClickZoom` in the {@link DoubleClickZoomHandler} section.
-  external DoubleClickZoomHandlerJsImpl get doubleClickZoom;
+  external DoubleClickZoomHandlerJsImpl doubleClickZoom;
 
   ///  The map's {@link TouchZoomRotateHandler}, which allows the user to zoom or rotate the map with touch gestures.
   ///  Find more details and examples using `touchZoomRotate` in the {@link TouchZoomRotateHandler} section.
-  external TouchZoomRotateHandlerJsImpl get touchZoomRotate;
+  external TouchZoomRotateHandlerJsImpl touchZoomRotate;
 
   ///  Adds an {@link IControl} to the map, calling `control.onAdd(this)`.
   ///
@@ -105,7 +105,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  or when the map is shown after being initially hidden with CSS.
   ///
   ///  @param eventData Additional properties to be passed to `movestart`, `move`, `resize`, and `moveend`
-  ///    events that get triggered as a result of resize. This can be useful for differentiating the
+  ///    events that triggered as a result of resize. This can be useful for differentiating the
   ///    source of an event (for example, user-initiated or programmatically-triggered events).
   ///  @returns {MapboxMap} `this`
   ///  @example
@@ -113,7 +113,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  // after being initially hidden with CSS.
   ///  var mapDiv = document.getElementById('map');
   ///  if (mapDiv.style.visibility === true) map.resize();
-  external MapboxMapJsImpl resize([dynamic eventData]);
+  external MapboxMapJsImpl resize([JSAny? eventData]);
 
   ///  Returns the map's geographical bounds. When the bearing or pitch is non-zero, the visible region is not
   ///  an axis-aligned rectangle, and the result is the smallest bounds that encompasses the visible region.
@@ -293,7 +293,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {Function} listener The function to be called when the event is fired.
   ///  @returns {MapboxMap} `this`
   // Defined in evented.dart
-  //external MapboxMap on(String type, [dynamic layerIdOrListener, Listener listener]);
+  //external MapboxMap on(String type, [ JSAny layerIdOrListener, Listener listener]);
 
   ///  Removes an event listener for layer-specific events previously added with `MapboxMap#on`.
   ///
@@ -302,7 +302,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {Function} listener The function previously installed as a listener.
   ///  @returns {MapboxMap} `this`
   // Defined in evented.dart
-  //external MapboxMap off(String type, [dynamic layerIdOrListener, Listener listener]);
+  //external MapboxMap off(String type, [ JSAny layerIdOrListener, Listener listener]);
 
   ///  Returns an array of [GeoJSON](http://geojson.org/)
   ///  [Feature objects](https://tools.ietf.org/html/rfc7946#section-3.2)
@@ -381,8 +381,8 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see [Get features under the mouse pointer](https://www.mapbox.com/mapbox-gl-js/example/queryrenderedfeatures/)
   ///  @see [Highlight features within a bounding box](https://www.mapbox.com/mapbox-gl-js/example/using-box-queryrenderedfeatures/)
   ///  @see [Filter features within map view](https://www.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/)
-  external List<FeatureJsImpl> queryRenderedFeatures(dynamic geometry,
-      [dynamic options]);
+  external JSArray<FeatureJsImpl> queryRenderedFeatures(JSAny geometry,
+      [JSAny? options]);
 
   ///  Returns an array of [GeoJSON](http://geojson.org/)
   ///  [Feature objects](https://tools.ietf.org/html/rfc7946#section-3.2)
@@ -419,8 +419,8 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  });
   ///
   ///  @see [Highlight features containing similar data](https://www.mapbox.com/mapbox-gl-js/example/query-similar-features/)
-  external List<dynamic> querySourceFeatures(
-      String sourceId, dynamic parameters);
+  external JSArray<FeatureJsImpl> querySourceFeatures(
+      String sourceId, JSAny parameters);
 
   ///  Updates the map's Mapbox style object with a new value.
   ///
@@ -447,7 +447,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  map.setStyle("mapbox://styles/mapbox/streets-v11");
   ///
   ///  @see [Change a map's style](https://www.mapbox.com/mapbox-gl-js/example/setstyle/)
-  external MapboxMapJsImpl setStyle(dynamic style, [dynamic options]);
+  external MapboxMapJsImpl setStyle(JSAny style, [JSAny? options]);
 
   ///  Returns the map's Mapbox style object, which can be used to recreate the map's style.
   ///
@@ -455,7 +455,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///
   ///  @example
   ///  var styleJson = map.getStyle();
-  external dynamic getStyle();
+  external JSAny getStyle();
 
   ///  Returns a Boolean indicating whether the map's style is fully loaded.
   ///
@@ -496,7 +496,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see Vector source: [Show and hide layers](https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/)
   ///  @see GeoJSON source: [Add live realtime data](https://docs.mapbox.com/mapbox-gl-js/example/live-geojson/)
   ///  @see Raster DEM source: [Add hillshading](https://docs.mapbox.com/mapbox-gl-js/example/hillshade/)
-  external MapboxMapJsImpl addSource(String id, dynamic source);
+  external MapboxMapJsImpl addSource(String id, JSAny source);
 
   ///  Returns a Boolean indicating whether the source is loaded.
   ///
@@ -520,7 +520,8 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {string} name The name of the source type; source definition objects use this name in the `{type: ...}` field.
   ///  @param {Function} SourceType A {@link Source} constructor.
   ///  @param {Function} callback Called when the source type is ready or with an error argument if there is an error.
-  external addSourceType(String name, dynamic sourceType, Function callback);
+  external void addSourceType(
+      String name, JSAny sourceType, JSFunction callback);
 
   ///  Removes a source from the map's style.
   ///
@@ -528,7 +529,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @returns {MapboxMap} `this`
   ///  @example
   ///  map.removeSource('bathymetry-data');
-  external removeSource(String id);
+  external void removeSource(String id);
 
   ///  Returns the source with the specified ID in the map's style.
   ///
@@ -540,7 +541,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see [Create a draggable point](https://www.mapbox.com/mapbox-gl-js/example/drag-a-point/)
   ///  @see [Animate a point](https://www.mapbox.com/mapbox-gl-js/example/animate-point-along-line/)
   ///  @see [Add live realtime data](https://www.mapbox.com/mapbox-gl-js/example/live-geojson/)
-  external dynamic getSource(String id);
+  external JSAny getSource(String id);
 
   ///  Add an image to the style. This image can be displayed on the map like any other icon in the style's
   ///  [sprite](https://docs.mapbox.com/help/glossary/sprite/) using the image's ID with
@@ -585,7 +586,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///
   ///  @see Use `HTMLImageElement`: [Add an icon to the map](https://www.mapbox.com/mapbox-gl-js/example/add-image/)
   ///  @see Use `ImageData`: [Add a generated icon to the map](https://www.mapbox.com/mapbox-gl-js/example/add-image-generated/)
-  external addImage(String id, dynamic image, [dynamic options]);
+  external void addImage(String id, JSAny image, [JSAny? options]);
 
   ///  Update an existing image in a style. This image can be displayed on the map like any other icon in the style's
   ///  [sprite](https://docs.mapbox.com/help/glossary/sprite/) using the image's ID with
@@ -602,7 +603,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  // If an image with the ID 'cat' already exists in the style's sprite,
   ///  // replace that image with a new image, 'other-cat-icon.png'.
   ///  if (map.hasImage('cat')) map.updateImage('cat', './other-cat-icon.png');
-  external updateImage(String id, dynamic image);
+  external void updateImage(String id, JSAny image);
 
   ///  Check whether or not an image with a specific ID exists in the style. This checks both images
   ///  in the style's original [sprite](https://docs.mapbox.com/help/glossary/sprite/) and any images
@@ -627,7 +628,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  // If an image with the ID 'cat' exists in
   ///  // the style's sprite, remove it.
   ///  if (map.hasImage('cat')) map.removeImage('cat');
-  external removeImage(String id);
+  external void removeImage(String id);
 
   ///  Load an image from an external URL to be used with `MapboxMap#addImage`. External
   ///  domains must support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
@@ -644,7 +645,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  });
   ///
   ///  @see [Add an icon to the map](https://www.mapbox.com/mapbox-gl-js/example/add-image/)
-  external loadImage(String url, dynamic callback);
+  external void loadImage(String url, JSAny callback);
 
   //////
   ///  Returns an Array of strings containing the IDs of all images currently available in the map.
@@ -656,7 +657,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @example
   ///  var allImages = map.listImages();
   ///
-  external List<String> listImages();
+  external JSArray<JSString> listImages();
 
   ///  Adds a [Mapbox style layer](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers)
   ///  to the map's style.
@@ -692,7 +693,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see [Create and style clusters](https://www.mapbox.com/mapbox-gl-js/example/cluster/)
   ///  @see [Add a vector tile source](https://www.mapbox.com/mapbox-gl-js/example/vector-source/)
   ///  @see [Add a WMS source](https://www.mapbox.com/mapbox-gl-js/example/wms/)
-  external MapboxMapJsImpl addLayer(dynamic layer, [String? beforeId]);
+  external MapboxMapJsImpl addLayer(JSAny layer, [String? beforeId]);
 
   ///  Moves a layer to a different z-position.
   ///
@@ -716,7 +717,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @example
   ///  // If a layer with ID 'state-data' exists, remove it.
   ///  if (map.getLayer('state-data')) map.removeLayer('state-data');
-  external removeLayer(String id);
+  external void removeLayer(String id);
 
   ///  Returns the layer with the specified ID in the map's style.
   ///
@@ -729,7 +730,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///
   ///  @see [Filter symbols by toggling a list](https://www.mapbox.com/mapbox-gl-js/example/filter-markers/)
   ///  @see [Filter symbols by text input](https://www.mapbox.com/mapbox-gl-js/example/filter-markers-by-input/)
-  external dynamic getLayer(String id);
+  external JSAny getLayer(String id);
 
   ///  Sets the zoom extent for the specified style layer. The zoom extent includes the
   ///  [minimum zoom level](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layer-minzoom)
@@ -766,14 +767,14 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see [Filter features within map view](https://www.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/)
   ///  @see [Highlight features containing similar data](https://www.mapbox.com/mapbox-gl-js/example/query-similar-features/)
   ///  @see [Create a timeline animation](https://www.mapbox.com/mapbox-gl-js/example/timeline-animation/)
-  external MapboxMapJsImpl setFilter(String layerId, dynamic filter,
+  external MapboxMapJsImpl setFilter(String layerId, JSAny filter,
       [StyleSetterOptionsJsImpl? options]);
 
   ///  Returns the filter applied to the specified style layer.
   ///
   ///  @param {string} layerId The ID of the style layer whose filter to get.
   ///  @returns {Array} The layer's filter.
-  external List<dynamic> getFilter(String layerId);
+  external JSArray<JSAny> getFilter(String layerId);
 
   ///  Sets the value of a paint property in the specified style layer.
   ///
@@ -789,7 +790,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see [Change a layer's color with buttons](https://www.mapbox.com/mapbox-gl-js/example/color-switcher/)
   ///  @see [Adjust a layer's opacity](https://www.mapbox.com/mapbox-gl-js/example/adjust-layer-opacity/)
   ///  @see [Create a draggable point](https://www.mapbox.com/mapbox-gl-js/example/drag-a-point/)
-  external setPaintProperty(String layerId, String name, dynamic value,
+  external void setPaintProperty(String layerId, String name, JSAny value,
       [StyleSetterOptionsJsImpl? options]);
 
   ///  Returns the value of a paint property in the specified style layer.
@@ -797,7 +798,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {string} layerId The ID of the layer to get the paint property from.
   ///  @param {string} name The name of a paint property to get.
   ///  @returns {*} The value of the specified paint property.
-  external dynamic getPaintProperty(String layerId, String name);
+  external JSAny getPaintProperty(String layerId, String name);
 
   ///  Sets the value of a layout property in the specified style layer.
   ///
@@ -810,7 +811,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @example
   ///  map.setLayoutProperty('my-layer', 'visibility', 'none');
   external MapboxMapJsImpl setLayoutProperty(
-      String layerId, String name, dynamic value,
+      String layerId, String name, JSAny value,
       [StyleSetterOptionsJsImpl? options]);
 
   ///  Returns the value of a layout property in the specified style layer.
@@ -818,7 +819,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {string} layerId The ID of the layer to get the layout property from.
   ///  @param {string} name The name of the layout property to get.
   ///  @returns {*} The value of the specified layout property.
-  external dynamic getLayoutProperty(String layerId, String name);
+  external JSAny getLayoutProperty(String layerId, String name);
 
   ///  Sets the any combination of light values.
   ///
@@ -827,12 +828,12 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {boolean} [options.validate=true] Whether to check if the filter conforms to the Mapbox GL Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///  @returns {MapboxMap} `this`
   external MapboxMapJsImpl setLight(
-      dynamic light, StyleSetterOptionsJsImpl options);
+      JSAny light, StyleSetterOptionsJsImpl options);
 
   ///  Returns the value of the light object.
   ///
   ///  @returns {Object} light Light properties of the style.
-  external dynamic getLight();
+  external JSAny getLight();
 
   ///  Sets the state of a feature. The `state` object is merged in with the existing state of the feature.
   ///  Features are identified by their `id` attribute, which must be an integer or a string that can be
@@ -850,7 +851,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  feature ids, set the `generateId` option in the `GeoJSONSourceSpecification` to auto-assign them. This
   ///  option assigns ids based on a feature's index in the source data. If you change feature data using
   ///  `map.getSource('some id').setData(..)`, you may need to re-apply state taking into account updated `id` values.
-  external setFeatureState(dynamic feature, dynamic state);
+  external void setFeatureState(JSAny feature, JSAny state);
 
   ///  Removes feature state, setting it back to the default behavior. If only
   ///  source is specified, removes all states of that source. If
@@ -865,7 +866,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @param {string} `target.sourceLayer` (optional) /// For vector tile sources, the sourceLayer is
   ///   required.*
   ///  @param {string} key (optional) The key in the feature state to reset.
-  external removeFeatureState(dynamic target, [String? key]);
+  external void removeFeatureState(JSAny target, [String? key]);
 
   ///  Gets the state of a feature.
   ///  Features are identified by their `id` attribute, which must be an integer or a string that can be
@@ -879,12 +880,12 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///   required.*
   ///
   ///  @returns {Object} The state of the feature.
-  external dynamic getFeatureState(dynamic feature);
+  external JSAny getFeatureState(JSAny feature);
 
   ///  Returns the map's containing HTML element.
   ///
   ///  @returns {HTMLElement} The map's container.
-  external HtmlElement getContainer();
+  external HTMLElement getContainer();
 
   ///  Returns the HTML element containing the map's `<canvas>` element.
   ///
@@ -897,7 +898,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @returns {HTMLElement} The container of the map's `<canvas>`.
   ///  @see [Create a draggable point](https://www.mapbox.com/mapbox-gl-js/example/drag-a-point/)
   ///  @see [Highlight features within a bounding box](https://www.mapbox.com/mapbox-gl-js/example/using-box-queryrenderedfeatures/)
-  external HtmlElement getCanvasContainer();
+  external HTMLElement getCanvasContainer();
 
   ///  Returns the map's `<canvas>` element.
   ///
@@ -905,7 +906,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @see [Measure distances](https://www.mapbox.com/mapbox-gl-js/example/measure/)
   ///  @see [Display a popup on hover](https://www.mapbox.com/mapbox-gl-js/example/popup-on-hover/)
   ///  @see [Center the map on a clicked symbol](https://www.mapbox.com/mapbox-gl-js/example/center-on-symbol/)
-  external CanvasElement getCanvas();
+  external HTMLCanvasElement getCanvas();
 
   ///  Returns a Boolean indicating whether the map is fully loaded.
   ///
@@ -923,12 +924,12 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  Use this method when you are done using the map and wish to ensure that it no
   ///  longer consumes browser resources. Afterwards, you must not call any other
   ///  methods on the map.
-  external remove();
+  external void remove();
 
   ///  Trigger the rendering of a single frame. Use this method with custom layers to
   ///  repaint the map when the layer changes. Calling this multiple times before the
   ///  next frame is rendered will still result in only a single frame being rendered.
-  external triggerRepaint();
+  external void triggerRepaint();
 
   ///  Gets and sets a Boolean indicating whether the map will render an outline
   ///  around each tile and the tile ID. These tile boundaries are useful for
@@ -941,8 +942,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @type {boolean}
   ///  @instance
   ///  @memberof MapboxMap
-  external bool get showTileBoundaries;
-  external set showTileBoundaries(bool value);
+  external bool showTileBoundaries;
 
   ///  Gets and sets a Boolean indicating whether the map will render boxes
   ///  around all symbols in the data source, revealing which symbols
@@ -953,8 +953,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @type {boolean}
   ///  @instance
   ///  @memberof MapboxMap
-  external bool get showCollisionBoxes;
-  external set showCollisionBoxes(bool value);
+  external bool showCollisionBoxes;
 
   ///  Gets and sets a Boolean indicating whether the map should color-code
   ///  each fragment to show how many times it has been shaded.
@@ -966,8 +965,7 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @type {boolean}
   ///  @instance
   ///  @memberof MapboxMap
-  external bool get showOverdrawInspector;
-  external set showOverdrawInspector(bool value);
+  external bool showOverdrawInspector;
 
   ///  Gets and sets a Boolean indicating whether the map will
   ///  continuously repaint. This information is useful for analyzing performance.
@@ -976,12 +974,10 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @type {boolean}
   ///  @instance
   ///  @memberof MapboxMap
-  external bool get repaint;
-  external set repaint(bool value);
+  external bool repaint;
 
   /// show vertices
-  external bool get vertices;
-  external set vertices(bool value);
+  external bool vertices;
 
   ///  The version of Mapbox GL JS in use as specified in package.json, CHANGELOG.md, and the GitHub release.
   ///
@@ -989,78 +985,78 @@ class MapboxMapJsImpl extends CameraJsImpl {
   ///  @instance
   ///  @memberof MapboxMap
   ///  @var {string} version
-  external String get version;
+  external String version;
 }
 
 @JS()
 @anonymous
-class MapOptionsJsImpl {
+extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   /// If `true`, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
   /// For example, `http://path/to/my/page.html#2.59/39.26/53.07/-24.1/60`.
   /// An additional string may optionally be provided to indicate a parameter-styled hash,
   /// e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar, where foo
   /// is a custom parameter and bar is an arbitrary hash distinct from the map hash.
   /// `bool` or `String`
-  external dynamic get hash;
+  external JSAny hash;
 
   /// If `false`, no mouse, touch, or keyboard listeners will be attached to the map, so it will not respond to interaction.
-  external bool get interactive;
+  external bool interactive;
 
   /// The HTML element in which Mapbox GL JS will render the map, or the element's string `id`. The specified element must have no children.
   /// `HTMLElement` or `String`
-  external dynamic get container;
+  external JSAny container;
 
   /// The threshold, measured in degrees, that determines when the map's
   /// bearing will snap to north. For example, with a `bearingSnap` of 7, if the user rotates
   /// the map within 7 degrees of north, the map will automatically snap to exact north.
-  external num get bearingSnap;
+  external num bearingSnap;
 
   /// If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
-  external bool get pitchWithRotate;
+  external bool pitchWithRotate;
 
   ///  The max number of pixels a user can shift the mouse pointer during a click for it to be considered a valid click (as opposed to a mouse drag).
-  external num get clickTolerance;
+  external num clickTolerance;
 
   /// If `true`, an {@link AttributionControl} will be added to the map.
-  external bool get attributionControl;
+  external bool attributionControl;
 
   /// String or strings to show in an {@link AttributionControl}. Only applicable if `options.attributionControl` is `true`.
-  /// `String` or `List<String>`
-  external dynamic get customAttribution;
+  /// `String` or `JSArray<JSString>`
+  external JSAny customAttribution;
 
   /// A string representing the position of the Mapbox wordmark on the map. Valid options are `top-left`,`top-right`, `bottom-left`, `bottom-right`.
-  external String get logoPosition;
+  external String logoPosition;
 
   /// If `true`, map creation will fail if the performance of Mapbox
   /// GL JS would be dramatically worse than expected (i.e. a software renderer would be used).
-  external bool get failIfMajorPerformanceCaveat;
+  external bool failIfMajorPerformanceCaveat;
 
   /// If `true`, the map's canvas can be exported to a PNG using `map.getCanvas().toDataURL()`. This is `false` by default as a performance optimization.
-  external bool get preserveDrawingBuffer;
+  external bool preserveDrawingBuffer;
 
   /// If `true`, the gl context will be created with MSAA antialiasing, which can be useful for antialiasing custom layers. this is `false` by default as a performance optimization.
-  external bool get antialias;
+  external bool antialias;
 
   /// If `false`, the map won't attempt to re-request tiles once they expire per their HTTP `cacheControl`/`expires` headers.
-  external bool get refreshExpiredTiles;
+  external bool refreshExpiredTiles;
 
   /// If set, the map will be constrained to the given bounds.
-  external LngLatBoundsJsImpl get maxBounds;
+  external LngLatBoundsJsImpl maxBounds;
 
   /// If `true`, the "scroll to zoom" interaction is enabled. An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
-  external bool get scrollZoom;
+  external bool scrollZoom;
 
   /// The minimum zoom level of the map (0-24).
-  external num get minZoom;
+  external num minZoom;
 
   /// The maximum zoom level of the map (0-24).
-  external num get maxZoom;
+  external num maxZoom;
 
   /// The minimum pitch of the map (0-60).
-  external num get minPitch;
+  external num minPitch;
 
   /// The maximum pitch of the map (0-60).
-  external num get maxPitch;
+  external num maxPitch;
 
   ///  The map's Mapbox style. This must be an a JSON object conforming to
   ///  the schema described in the [Mapbox Style Specification](https://mapbox.com/mapbox-gl-style-spec/), or a URL to
@@ -1083,93 +1079,92 @@ class MapOptionsJsImpl {
   ///
   ///  Tilesets hosted with Mapbox can be style-optimized if you append `?optimize=true` to the end of your style URL, like `mapbox://styles/mapbox/streets-v11?optimize=true`.
   ///  Learn more about style-optimized vector tiles in our [API documentation](https://www.mapbox.com/api-documentation/maps/#retrieve-tiles).
-  external dynamic get style;
+  external JSAny style;
 
   /// If `true`, the "box zoom" interaction is enabled (see {@link BoxZoomHandler}).
-  external bool get boxZoom;
+  external bool boxZoom;
 
   /// If `true`, the "drag to rotate" interaction is enabled (see {@link DragRotateHandler}).
-  external bool get dragRotate;
+  external bool dragRotate;
 
   /// If `true`, the "drag to pan" interaction is enabled. An `Object` value is passed as options to {@link DragPanHandler#enable}.
-  external dynamic get dragPan;
+  external JSAny dragPan;
 
   /// If `true`, keyboard shortcuts are enabled (see {@link KeyboardHandler}).
-  external bool get keyboard;
+  external bool keyboard;
 
   /// If `true`, the "double click to zoom" interaction is enabled (see {@link DoubleClickZoomHandler}).
-  external bool get doubleClickZoom;
+  external bool doubleClickZoom;
 
   /// If `true`, the "pinch to rotate and zoom" interaction is enabled. An `Object` value is passed as options to {@link TouchZoomRotateHandler#enable}.
-  external bool get touchZoomRotate;
+  external bool touchZoomRotate;
 
   /// If `true`, the map will automatically resize when the browser window resizes.
-  external bool get trackResize;
+  external bool trackResize;
 
   /// The inital geographical centerpoint of the map. If `center` is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `[0, 0]` Note: Mapbox GL uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match GeoJSON.
-  external LngLatJsImpl get center;
+  external LngLatJsImpl center;
 
   /// The initial zoom level of the map. If `zoom` is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
-  external num get zoom;
+  external num zoom;
 
   /// The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If `bearing` is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
-  external num get bearing;
+  external num bearing;
 
   /// The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If `pitch` is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
-  external num get pitch;
+  external num pitch;
 
   /// The initial bounds of the map. If `bounds` is specified, it overrides `center` and `zoom` constructor options.
-  external LngLatBoundsJsImpl get bounds;
+  external LngLatBoundsJsImpl bounds;
 
   /// A [`fitBounds`](#map#fitbounds) options object to use _only_ when fitting the initial `bounds` provided above.
-  external dynamic get fitBoundsOptions;
+  external JSAny fitBoundsOptions;
 
   /// If `true`, multiple copies of the world will be rendered side by side beyond -180 and 180 degrees longitude. If set to `false`:
   /// - When the map is zoomed out far enough that a single representation of the world does not fill the map's entire
   /// container, there will be blank space beyond 180 and -180 degrees longitude.
   /// - Features that cross 180 and -180 degrees longitude will be cut in two (with one portion on the right edge of the
   /// map and the other on the left edge of the map) at every zoom level.
-  external bool get renderWorldCopies;
+  external bool renderWorldCopies;
 
   /// The maximum number of tiles stored in the tile cache for a given source. If omitted, the cache will be dynamically sized based on the current viewport.
-  external num get maxTileCacheSize;
+  external num maxTileCacheSize;
 
   /// Defines a CSS
   /// font-family for locally overriding generation of glyphs in the 'CJK Unified Ideographs', 'Hiragana', 'Katakana' and 'Hangul Syllables' ranges.
   /// In these ranges, font settings from the map's style will be ignored, except for font-weight keywords (light/regular/medium/bold).
   /// Set to `false`, to enable font settings from the map's style for these glyph ranges.  Note that [Mapbox Studio](https://studio.mapbox.com/) sets this value to `false` by default.
   /// The purpose of this option is to avoid bandwidth-intensive glyph server requests. (See [Use locally generated ideographs](https://www.mapbox.com/mapbox-gl-js/example/local-ideographs).)
-  external String get localIdeographFontFamily;
+  external String localIdeographFontFamily;
 
   /// A callback run before the MapboxMap makes a request for an external URL. The callback can be used to modify the url, set headers, or set the credentials property for cross-origin requests.
   /// Expected to return an object with a `url` property and optionally `headers` and `credentials` properties.
-  external RequestTransformFunctionJsImpl
-      get transformRequest; //TODO: Remove JsImpl
+  external JSFunction transformRequest; //TODO: Remove JsImpl
 
   /// If `true`, Resource Timing API information will be collected for requests made by GeoJSON and Vector Tile web workers (this information is normally inaccessible from the main Javascript thread). Information will be returned in a `resourceTiming` property of relevant `data` events.
-  external bool get collectResourceTiming;
+  external bool collectResourceTiming;
 
   /// Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds. This setting affects all symbol layers. This setting does not affect the duration of runtime styling transitions or raster tile cross-fading.
-  external num get fadeDuration;
+  external num fadeDuration;
 
   /// If `true`, symbols from multiple sources can collide with each other during collision detection. If `false`, collision detection is run separately for the symbols in each source.
-  external bool get crossSourceCollisions;
+  external bool crossSourceCollisions;
 
   /// If specified, map will use this token instead of the one defined in accessToken.
-  external String get accessToken;
+  external String accessToken;
 
   /// A patch to apply to the default localization table for UI strings, e.g. control tooltips. The `locale` object maps namespaced UI string IDs to translated strings in the target language; see `src/ui/default_locale.js` for an example with all supported string IDs. The object may specify all UI strings (thereby adding support for a new translation) or only a subset of strings (thereby patching the default translation table).
-  external dynamic get locale;
+  external JSAny locale;
 
   external factory MapOptionsJsImpl({
-    dynamic hash,
+    JSAny hash,
     bool? interactive,
-    dynamic container,
+    JSAny container,
     num? bearingSnap,
     bool? pitchWithRotate,
     bool? clickTolerance,
     bool? attributionControl,
-    dynamic customAttribution,
+    JSAny customAttribution,
     String? logoPosition,
     bool? failIfMajorPerformanceCaveat,
     bool? preserveDrawingBuffer,
@@ -1181,10 +1176,10 @@ class MapOptionsJsImpl {
     num? maxZoom,
     num? minPitch,
     num? maxPitch,
-    dynamic style,
+    JSAny style,
     bool? boxZoom,
     bool? dragRotate,
-    dynamic dragPan,
+    JSAny? dragPan,
     bool? keyboard,
     bool? doubleClickZoom,
     bool? touchZoomRotate,
@@ -1194,35 +1189,32 @@ class MapOptionsJsImpl {
     num? bearing,
     num? pitch,
     LngLatBoundsJsImpl? bounds,
-    dynamic fitBoundsOptions,
+    JSAny? fitBoundsOptions,
     bool? renderWorldCopies,
     num? maxTileCacheSize,
     String? localIdeographFontFamily,
-    RequestTransformFunctionJsImpl? transformRequest,
+    JSFunction? transformRequest,
     bool? collectResourceTiming,
     num? fadeDuration,
     bool? crossSourceCollisions,
     String? accessToken,
-    dynamic locale,
+    JSAny? locale,
   });
 }
 
-typedef RequestTransformFunctionJsImpl = RequestParametersJsImpl Function(
-    String url, String resourceType);
-
 @JS()
 @anonymous
-class RequestParametersJsImpl {
-  String? url;
-  String? credentials;
-  dynamic headers;
-  String? method;
-  bool? collectResourceTiming;
+extension type RequestParametersJsImpl._(JSObject _) implements JSObject {
+  external String? url;
+  external String? credentials;
+  external JSAny? headers;
+  external String? method;
+  external bool? collectResourceTiming;
 
   external factory RequestParametersJsImpl({
     String? url,
     String? credentials,
-    dynamic headers,
+    JSAny? headers,
     String? method,
     bool? collectResourceTiming,
   });
@@ -1260,16 +1252,16 @@ class RequestParametersJsImpl {
 /// ```
 @JS()
 @anonymous
-abstract class IControlJsImpl {
+extension type IControlJsImpl._(JSObject _) implements JSObject {
   ///  Register a control on the map and give it a chance to register event listeners
   ///  and resources. This method is called by {@link MapboxMap#addControl}
   ///  internally.
-  external HtmlElement onAdd(MapboxMapJsImpl map);
+  external HTMLElement onAdd(MapboxMapJsImpl map);
 
   ///  Unregister a control on the map and give it a chance to detach event listeners
   ///  and resources. This method is called by {@link MapboxMap#removeControl}
   ///  internally.
-  external onRemove(MapboxMapJsImpl map);
+  external void onRemove(MapboxMapJsImpl map);
 
   ///  Optionally provide a default position for this control. If this method
   ///  is implemented and {@link MapboxMap#addControl} is called without the `position`

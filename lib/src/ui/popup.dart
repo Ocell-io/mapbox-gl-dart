@@ -1,6 +1,6 @@
 library mapboxgl.ui.popup;
 
-import 'dart:html';
+import 'package:web/web.dart';
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 

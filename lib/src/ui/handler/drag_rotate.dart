@@ -1,6 +1,6 @@
 library mapboxgl.ui.handler.drag_rotate;
 
-import 'dart:html';
+import 'package:web/web.dart';
 
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 

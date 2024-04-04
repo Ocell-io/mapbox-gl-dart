@@ -1,5 +1,7 @@
 library mapboxgl.ui.camera;
 
+import 'dart:js_interop';
+
 import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
@@ -57,7 +59,8 @@ class CameraOptions extends JsObjectWrapper<CameraOptionsJsImpl> {
 ///    [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion).
 class AnimationOptions extends JsObjectWrapper<AnimationOptionsJsImpl> {
   num get duration => jsObject.duration;
-  num Function(num time) get easing => jsObject.easing;
+
+  num easing(num time) => (jsObject.easing.callAsFunction(time.toJS) as JSNumber).toDartDouble;
   Point get offset => Point.fromJsObject(jsObject.offset);
   bool get animate => jsObject.animate;
   bool get essential => jsObject.essential;
@@ -71,7 +74,7 @@ class AnimationOptions extends JsObjectWrapper<AnimationOptionsJsImpl> {
   }) =>
       AnimationOptions.fromJsObject(AnimationOptionsJsImpl(
         duration: duration,
-        easing: easing,
+        easing: easing?.toJS,
         offset: offset.jsObject,
         animate: animate,
         essential: essential,

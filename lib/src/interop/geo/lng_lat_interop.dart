@@ -1,7 +1,7 @@
 @JS('mapboxgl')
 library mapboxgl.interop.geo.lng_lat;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 ///  A `LngLat` object represents a given longitude and latitude coordinate, measured in degrees.
@@ -21,9 +21,9 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 ///  @see [Highlight features within a bounding box](https://www.mapbox.com/mapbox-gl-js/example/using-box-queryrenderedfeatures/)
 ///  @see [Create a timeline animation](https://www.mapbox.com/mapbox-gl-js/example/timeline-animation/)
 @JS('LngLat')
-class LngLatJsImpl {
-  external num get lng;
-  external num get lat;
+extension type LngLatJsImpl._(JSObject jsObject) implements JSObject {
+  external num lng;
+  external num lat;
 
   external factory LngLatJsImpl(
     num lng,
@@ -45,15 +45,7 @@ class LngLatJsImpl {
   ///  @example
   ///  var ll = new mapboxgl.LngLat(-73.9749, 40.7736);
   ///  ll.toArray(); // = [-73.9749, 40.7736]
-  external List<num> toArray();
-
-  ///  Returns the coordinates represent as a string.
-  ///
-  ///  @returns {string} The coordinates represented as a string of the format `'LngLat(lng, lat)'`.
-  ///  @example
-  ///  var ll = new mapboxgl.LngLat(-73.9749, 40.7736);
-  ///  ll.toString(); // = "LngLat(-73.9749, 40.7736)"
-  external String toString();
+  external JSArray<JSNumber> toArray();
 
   ///  Returns a `LngLatBounds` from the coordinates extended by a given `radius`. The returned `LngLatBounds` completely contains the `radius`.
   ///
@@ -75,5 +67,5 @@ class LngLatJsImpl {
   ///  var arr = [-73.9749, 40.7736];
   ///  var ll = mapboxgl.LngLat.convert(arr);
   ///  ll;   // = LngLat {lng: -73.9749, lat: 40.7736}
-  external static LngLatJsImpl convert(dynamic input);
+  external static LngLatJsImpl convert(JSAny input);
 }

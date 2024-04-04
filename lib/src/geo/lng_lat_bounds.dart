@@ -1,5 +1,7 @@
 library mapboxgl.geo.lng_lat_bounds;
 
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
@@ -104,7 +106,11 @@ class LngLatBounds extends JsObjectWrapper<LngLatBoundsJsImpl> {
   ///  @example
   ///  var llb = new mapboxgl.LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
   ///  llb.toArray(); // = [[-73.9876, 40.7661], [-73.9397, 40.8002]]
-  List<List<num>> toArray() => jsObject.toArray();
+  List<List<num>> toArray() => jsObject
+      .toArray()
+      .toDart
+      .map((e) => e.toDart.map((e) => e.toDartDouble).toList())
+      .toList();
 
   ///  Return the bounding box represented as a string.
   ///

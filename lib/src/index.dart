@@ -1,10 +1,10 @@
 @JS()
 library mapboxgl.base;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 @JS('mapboxgl')
-abstract class Mapbox {
+extension type Mapbox._(JSObject _) implements JSObject {
   ///  Gets and sets the map's [access token](https://www.mapbox.com/help/define-access-token/).
   ///
   ///  @var {string} accessToken
@@ -72,7 +72,7 @@ abstract class Mapbox {
   ///
   ///  @function clearStorage
   ///  @param {Function} callback Called with an error argument if there is an error.
-  external static void clearStorage(Function(Error e) f);
+  external static void clearStorage(JSFunction f);
 
   /// Sets the map's [RTL text plugin](https://www.mapbox.com/mapbox-gl-js/plugins/#mapbox-gl-rtl-text).
   /// Necessary for supporting the Arabic and Hebrew languages, which are written right-to-left. Mapbox Studio loads this plugin by default.
@@ -86,7 +86,7 @@ abstract class Mapbox {
   /// mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
   /// @see [Add support for right-to-left scripts](https://www.mapbox.com/mapbox-gl-js/example/mapbox-gl-rtl-text/)
   external static void setRTLTextPlugin(
-      String pluginURL, Function callback, bool lazy);
+      String pluginURL, JSFunction callback, bool lazy);
 
   /// Gets the map's [RTL text plugin](https://www.mapbox.com/mapbox-gl-js/plugins/#mapbox-gl-rtl-text) status.
   /// The status can be `unavailable` (i.e. not requested or removed), `loading`, `loaded` or `error`.

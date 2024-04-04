@@ -1,27 +1,27 @@
 @JS('mapboxgl')
 library mapboxgl.interop.ui.events;
 
-import 'dart:html';
-import 'package:js/js.dart';
+import 'package:web/web.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 @JS()
 @anonymous
-abstract class MapMouseEventJsImpl {
+extension type MapMouseEventJsImpl._(JSObject _) implements JSObject {
   /// The event type.
-  external String get type;
+  external String type;
 
   /// The `MapboxMap` object that fired the event.
-  external MapboxMapJsImpl get target;
+  external MapboxMapJsImpl target;
 
   /// The DOM event which caused the map event.
-  external MouseEvent get originalEvent;
+  external MouseEvent originalEvent;
 
   /// The pixel coordinates of the mouse cursor, relative to the map and measured from the top left corner.
-  external PointJsImpl get point;
+  external PointJsImpl point;
 
   /// The geographic location on the map of the mouse cursor.
-  external LngLatJsImpl get lngLat;
+  external LngLatJsImpl lngLat;
 
   ///  Prevents subsequent default processing of the event by the map.
   ///
@@ -31,38 +31,38 @@ abstract class MapMouseEventJsImpl {
   ///  *  On `mousedown` events, the behavior of {@link DragRotateHandler}
   ///  *  On `mousedown` events, the behavior of {@link BoxZoomHandler}
   ///  *  On `dblclick` events, the behavior of {@link DoubleClickZoomHandler}
-  external preventDefault();
+  external void preventDefault();
 
   /// `true` if `preventDefault` has been called.
-  external bool get defaultPrevented;
+  external bool defaultPrevented;
 }
 
 @JS()
 @anonymous
-abstract class MapTouchEventJsImpl {
+extension type MapTouchEventJsImpl._(JSObject _) implements JSObject {
   /// The event type.
-  external String get type;
+  external String type;
 
   /// The `MapboxMap` object that fired the event.
-  external MapboxMapJsImpl get target;
+  external MapboxMapJsImpl target;
 
   /// The DOM event which caused the map event.
-  external TouchEvent get originalEvent;
+  external TouchEvent originalEvent;
 
   /// The geographic location on the map of the center of the touch event points.
-  external LngLatJsImpl get lngLat;
+  external LngLatJsImpl lngLat;
 
   /// The pixel coordinates of the center of the touch event points, relative to the map and measured from the top left
   /// corner.
-  external PointJsImpl get point;
+  external PointJsImpl point;
 
   ///  The array of pixel coordinates corresponding to a
   ///  [touch event's `touches`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/touches) property.
-  external List<PointJsImpl> get points;
+  external JSArray<PointJsImpl> points;
 
   ///  The geographical locations on the map corresponding to a
   ///  [touch event's `touches`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/touches) property.
-  external List<LngLatJsImpl> get lngLats;
+  external JSArray<LngLatJsImpl> lngLats;
 
   ///  Prevents subsequent default processing of the event by the map.
   ///
@@ -70,8 +70,8 @@ abstract class MapTouchEventJsImpl {
   ///
   ///  *  On `touchstart` events, the behavior of {@link DragPanHandler}
   ///  *  On `touchstart` events, the behavior of {@link TouchZoomRotateHandler}
-  external preventDefault();
+  external void preventDefault();
 
   ///  `true` if `preventDefault` has been called.
-  external bool get defaultPrevented;
+  external bool defaultPrevented;
 }

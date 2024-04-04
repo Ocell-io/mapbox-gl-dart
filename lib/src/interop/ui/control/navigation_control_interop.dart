@@ -1,12 +1,13 @@
 @JS('mapboxgl')
 library mapboxgl.interop.ui.control.navigation_control;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 @JS()
 @anonymous
-class NavigationControlOptionsJsImpl {
+extension type NavigationControlOptionsJsImpl._(JSObject _)
+    implements JSObject {
   external bool get showCompass;
   external bool get showZoom;
   external bool get visualizePitch;
@@ -31,13 +32,13 @@ class NavigationControlOptionsJsImpl {
 /// @see [Display map navigation controls](https://www.mapbox.com/mapbox-gl-js/example/navigation/)
 /// @see [Add a third party vector tile source](https://www.mapbox.com/mapbox-gl-js/example/third-party/)
 @JS('NavigationControl')
-class NavigationControlJsImpl {
+extension type NavigationControlJsImpl._(JSObject _) implements JSObject {
   external NavigationControlOptionsJsImpl get options;
 
   external factory NavigationControlJsImpl(
       NavigationControlOptionsJsImpl options);
 
-  external onAdd(MapboxMapJsImpl map);
+  external void onAdd(MapboxMapJsImpl map);
 
-  external onRemove();
+  external void onRemove();
 }

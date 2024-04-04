@@ -1,7 +1,5 @@
 library mapboxgl.ui.handler.drag_pan;
 
-import 'dart:html';
-
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 class DragPanHandler extends JsObjectWrapper<DragPanHandlerJsImpl> {
@@ -26,10 +24,6 @@ class DragPanHandler extends JsObjectWrapper<DragPanHandlerJsImpl> {
   ///  @example
   ///  map.dragPan.disable();
   disable() => jsObject.disable();
-
-  onMouseDown(MouseEvent e) => jsObject.onMouseDown(e);
-
-  onTouchStart(TouchEvent e) => jsObject.onTouchStart(e);
 
   /// Creates a new DragPanHandler from a [jsObject].
   DragPanHandler.fromJsObject(DragPanHandlerJsImpl jsObject)

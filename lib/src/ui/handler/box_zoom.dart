@@ -1,6 +1,6 @@
 library mapboxgl.ui.handler.box_zoom;
 
-import 'dart:html';
+import 'package:web/web.dart';
 
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
@@ -27,7 +27,7 @@ class BoxZoomHandler extends JsObjectWrapper<BoxZoomHandlerJsImpl> {
   ///    map.boxZoom.disable();
   disable() => jsObject.disable();
 
-  onMouseDown(MouseEvent e) => jsObject.onMouseDown(e);
+  onMouseDown(MouseEvent e) => jsObject.onmousedown(e);
 
   /// Creates a new BoxZoomHandler from a [jsObject].
   BoxZoomHandler.fromJsObject(BoxZoomHandlerJsImpl jsObject)

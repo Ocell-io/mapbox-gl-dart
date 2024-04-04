@@ -1,21 +1,21 @@
 @JS('mapboxgl')
 library mapboxgl.interop.style.evaluation_parameters;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 @JS('EvaluationParameters')
-class EvaluationParametersJsImpl {
-  external num get zoom;
-  external num get now;
-  external num get fadeDuration;
-  external dynamic get zoomHistory;
-  external dynamic get transition;
+extension type EvaluationParametersJsImpl._(JSObject _) implements JSObject {
+  external num zoom;
+  external num now;
+  external num fadeDuration;
+  external JSAny zoomHistory;
+  external JSAny transition;
 
-  external factory EvaluationParametersJsImpl(num zoom, [dynamic options]);
+  external factory EvaluationParametersJsImpl(num zoom, [JSAny options]);
 
   external bool isSupportedScript(String str);
 
-  external crossFadingFactor();
+  external void crossFadingFactor();
 
-  external dynamic getCrossfadeParameters();
+  external JSAny getCrossfadeParameters();
 }

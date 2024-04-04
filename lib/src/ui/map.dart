@@ -1,6 +1,8 @@
 library mapboxgl.ui.map;
 
-import 'dart:html';
+import 'dart:js_interop';
+
+import 'package:web/web.dart';
 import 'dart:js';
 import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
@@ -409,12 +411,12 @@ class MapboxMap extends Camera {
       [Map<String, dynamic>? options]) {
     if (options == null) {
       return jsObject
-          .queryRenderedFeatures(geometry)
+          .queryRenderedFeatures(geometry).toDart
           .map((dynamic f) => Feature.fromJsObject(f))
           .toList();
     }
     return jsObject
-        .queryRenderedFeatures(geometry, jsify(options))
+        .queryRenderedFeatures(geometry, jsify(options)).toDart
         .map((dynamic f) => Feature.fromJsObject(f))
         .toList();
   }
@@ -455,7 +457,7 @@ class MapboxMap extends Camera {
   ///
   ///  @see [Highlight features containing similar data](https://www.mapbox.com/mapbox-gl-js/example/query-similar-features/)
   List<dynamic> querySourceFeatures(String sourceId, dynamic parameters) =>
-      jsObject.querySourceFeatures(sourceId, parameters);
+      jsObject.querySourceFeatures(sourceId, parameters).toDart;
 
   ///  Updates the map's Mapbox style object with a new value.
   ///
@@ -562,7 +564,7 @@ class MapboxMap extends Camera {
   ///  @param {Function} SourceType A {@link Source} constructor.
   ///  @param {Function} callback Called when the source type is ready or with an error argument if there is an error.
   addSourceType(String name, dynamic sourceType, Function callback) =>
-      jsObject.addSourceType(name, sourceType, callback);
+      jsObject.addSourceType(name, sourceType, callback.toJS);
 
   ///  Removes a source from the map's style.
   ///
@@ -703,7 +705,7 @@ class MapboxMap extends Camera {
   ///
   ///  @see [Add an icon to the map](https://www.mapbox.com/mapbox-gl-js/example/add-image/)
   loadImage(String url, Function callback) =>
-      jsObject.loadImage(url, allowInterop(callback));
+      jsObject.loadImage(url, callback.toJS);
 
   //////
   ///  Returns an Array of strings containing the IDs of all images currently available in the map.
@@ -715,7 +717,7 @@ class MapboxMap extends Camera {
   ///  @example
   ///  var allImages = map.listImages();
   ///
-  List<String> listImages() => jsObject.listImages();
+  List<String> listImages() => jsObject.listImages().toDart.map((e) => e.toDart).toList();
 
   ///  Adds a [Mapbox style layer](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers)
   ///  to the map's style.
@@ -843,7 +845,7 @@ class MapboxMap extends Camera {
   ///
   ///  @param {string} layerId The ID of the style layer whose filter to get.
   ///  @returns {Array} The layer's filter.
-  List<dynamic> getFilter(String layerId) => jsObject.getFilter(layerId);
+  List<JSAny> getFilter(String layerId) => jsObject.getFilter(layerId).toDart.toList();
 
   ///  Sets the value of a paint property in the specified style layer.
   ///
@@ -1275,7 +1277,7 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
     bool? renderWorldCopies,
     num? maxTileCacheSize,
     String? localIdeographFontFamily,
-    RequestTransformFunctionJsImpl? transformRequest, //TODO: Remove JsImpl
+    JsFunction? transformRequest, //TODO: Remove JsImpl
     bool? collectResourceTiming,
     num? fadeDuration,
     bool? crossSourceCollisions,

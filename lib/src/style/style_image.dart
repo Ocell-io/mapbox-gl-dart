@@ -1,5 +1,7 @@
 library mapboxgl.style.style_image;
 
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 class StyleImage extends JsObjectWrapper<StyleImageJsImpl> {
@@ -20,10 +22,10 @@ class StyleImageInterface extends JsObjectWrapper<StyleImageInterfaceJsImpl> {
   num get width => jsObject.width;
   num get height => jsObject.height;
   dynamic get data => jsObject.data;
-  Function get render => jsObject.render;
-  Function(MapboxMapJsImpl map, String id) get onAdd =>
-      jsObject.onAdd; //TODO: Remove JsImpl
-  Function get onRemove => jsObject.onRemove;
+  Function get render => () => jsObject.render.callAsFunction();
+  Function(MapboxMapJsImpl map, String id) get onAdd => (map, id) =>
+      jsObject.onAdd.callAsFunction(map, id.toJS); //TODO: Remove JsImpl
+  Function get onRemove => () => jsObject.onRemove.callAsFunction();
 
   /// Creates a new EvaluationParameters from a [jsObject].
   StyleImageInterface.fromJsObject(StyleImageInterfaceJsImpl jsObject)

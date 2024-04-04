@@ -1,5 +1,7 @@
 library mapboxgl.style.style;
 
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
@@ -70,7 +72,8 @@ class Style extends JsObjectWrapper<StyleJsImpl> {
   ///  Add a layer to the map style. The layer will be inserted before the layer with
   ///  ID `before`, or appended if `before` is omitted.
   ///  @param {string} [before] ID of an existing layer to insert before
-  addLayer(dynamic layerObject, [String? before, StyleSetterOptions? options]) =>
+  addLayer(dynamic layerObject,
+          [String? before, StyleSetterOptions? options]) =>
       jsObject.addLayer(layerObject);
 
   ///  Moves a layer to a different z-position. The layer will be inserted before the layer with
@@ -138,7 +141,7 @@ class Style extends JsObjectWrapper<StyleJsImpl> {
       jsObject.querySourceFeatures(sourceID, params);
 
   addSourceType(String name, dynamic sourceType, Function callback) =>
-      jsObject.addSourceType(name, sourceType, callback);
+      jsObject.addSourceType(name, sourceType, callback.toJS);
 
   getLight() => jsObject.getLight();
 
@@ -148,13 +151,13 @@ class Style extends JsObjectWrapper<StyleJsImpl> {
   // Callbacks from web workers
 
   getImages(String mapId, dynamic params, Function callback) =>
-      jsObject.getImages(mapId, params, callback);
+      jsObject.getImages(mapId, params, callback.toJS);
 
   getGlyphs(String mapId, dynamic params, Function callback) =>
-      jsObject.getGlyphs(mapId, params, callback);
+      jsObject.getGlyphs(mapId, params, callback.toJS);
 
   getResource(String mapId, RequestParameters params, Function callback) =>
-      jsObject.getResource(mapId, params.jsObject, callback);
+      jsObject.getResource(mapId, params.jsObject, callback.toJS);
 
   /// Creates a new Style from a [jsObject].
   Style.fromJsObject(StyleJsImpl jsObject) : super.fromJsObject(jsObject);

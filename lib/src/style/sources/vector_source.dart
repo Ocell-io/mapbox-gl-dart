@@ -1,11 +1,14 @@
 library mapboxgl.style.sources.vector_source;
 
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 class VectorSource extends Source<VectorSourceJsImpl> {
   String? get url => jsObject.url;
-  List<String>? get tiles => jsObject.tiles;
+  List<String>? get tiles =>
+      jsObject.tiles.toDart.map((e) => e.toDart).toList();
 
   factory VectorSource({
     String? url,
@@ -22,7 +25,7 @@ class VectorSource extends Source<VectorSourceJsImpl> {
     }
     return VectorSource.fromJsObject(VectorSourceJsImpl(
       type: 'vector',
-      tiles: tiles,
+      tiles: tiles?.map((e) => e.toJS).toList().toJS,
     ));
   }
 

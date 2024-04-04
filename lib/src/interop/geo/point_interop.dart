@@ -1,11 +1,11 @@
 @JS('mapboxgl')
 library mapboxgl.interop.geo.point;
 
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 @JS()
 @anonymous
-class PointJsImpl {
+extension type PointJsImpl._(JSObject _) implements JSObject {
   external num get x;
   external num get y;
 

@@ -1,8 +1,8 @@
 @JS('mapboxgl')
 library mapboxgl.interop.ui.popup;
 
-import 'dart:html';
-import 'package:js/js.dart';
+import 'package:web/web.dart';
+import 'dart:js_interop';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 /// A popup component.
@@ -51,8 +51,8 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 /// @see [Display a popup on click](https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/)
 /// @see [Attach a popup to a marker instance](https://www.mapbox.com/mapbox-gl-js/example/set-popup/)
 @JS('Popup')
-class PopupJsImpl extends EventedJsImpl {
-  external dynamic get options;
+extension type PopupJsImpl._(EventedJsImpl _) implements EventedJsImpl {
+  external JSAny get options;
 
   external factory PopupJsImpl([PopupOptionsJsImpl? options]);
 
@@ -96,7 +96,7 @@ class PopupJsImpl extends EventedJsImpl {
 
   /// Returns the `Popup`'s HTML element.
   /// @returns {HtmlElement} element
-  external HtmlElement getElement();
+  external HTMLElement getElement();
 
   /// Sets the popup's content to a string of text.
   ///
@@ -157,7 +157,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// @example
   /// let popup = new mapboxgl.Popup()
   /// popup.addClassName('some-class')
-  external addClassName(String className);
+  external void addClassName(String className);
 
   /// Removes a CSS class from the popup container element.
   ///
@@ -166,7 +166,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// @example
   /// let popup = new mapboxgl.Popup()
   /// popup.removeClassName('some-class')
-  external removeClassName(String className);
+  external void removeClassName(String className);
 
   /// Add or remove the given CSS class on the popup container, depending on whether the container currently has that class.
   ///
@@ -182,13 +182,13 @@ class PopupJsImpl extends EventedJsImpl {
 
 @JS()
 @anonymous
-class PopupOptionsJsImpl {
+extension type PopupOptionsJsImpl._(JSObject _) implements JSObject {
   external factory PopupOptionsJsImpl({
     bool? loseButton,
     bool? closeButton,
     bool? closeOnClick,
     String? anchor,
-    dynamic offset,
+    JSAny offset,
     String? className,
     String? maxWidth,
   });

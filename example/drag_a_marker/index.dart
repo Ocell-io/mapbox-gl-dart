@@ -1,9 +1,9 @@
-import 'dart:html';
+import 'package:web/web.dart';
 
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 
 late Marker marker;
-late HtmlElement coordinates;
+late HTMLElement coordinates;
 
 void main() {
   Mapbox.accessToken =
@@ -31,6 +31,7 @@ void main() {
 void onDragEnd(_) {
   var lngLat = marker.getLngLat();
   coordinates.style.display = 'block';
-  coordinates.innerHtml =
+
+  coordinates.innerHTML =
       'Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}';
 }

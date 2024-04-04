@@ -1,6 +1,6 @@
 library mapboxgl.ui.handler.scroll_zoom;
 
-import 'dart:html';
+import 'package:web/web.dart';
 
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
@@ -43,7 +43,7 @@ class ScrollZoomHandler extends JsObjectWrapper<ScrollZoomHandlerJsImpl> {
   ///    map.scrollZoom.disable();
   disable() => jsObject.disable();
 
-  onWheel(WheelEvent e) => jsObject.onWheel(e);
+  onWheel(WheelEvent e) => jsObject.wheel(e);
 
   /// Creates a new ScrollZoomHandler from a [jsObject].
   ScrollZoomHandler.fromJsObject(ScrollZoomHandlerJsImpl jsObject)
