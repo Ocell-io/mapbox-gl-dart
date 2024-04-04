@@ -1,12 +1,13 @@
 library mapboxgl.interop.style.layers.symbol_layer;
 
-import 'package:js/js_util.dart';
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 
 class SymbolLayerJsImpl {
-  static toJs(SymbolLayer symbolLayer) => jsify(toDict(symbolLayer));
+  static JSAny? toJs(SymbolLayer symbolLayer) => toDict(symbolLayer).jsify();
 
-  static toDict(SymbolLayer symbolLayer) {
+  static Map<String, dynamic> toDict(SymbolLayer symbolLayer) {
     Map<String, dynamic> dict = {
       'id': symbolLayer.id,
       'type': 'symbol',
@@ -42,9 +43,9 @@ class SymbolLayerJsImpl {
 }
 
 class SymbolPaintJsImpl {
-  static toJs(SymbolPaint symbolPaint) => jsify(toDict(symbolPaint));
+  static JSAny? toJs(SymbolPaint symbolPaint) => toDict(symbolPaint).jsify();
 
-  static toDict(SymbolPaint symbolPaint) {
+  static Map<String, dynamic> toDict(SymbolPaint symbolPaint) {
     Map<String, dynamic> dict = {};
     if (symbolPaint.iconOpacity != null) {
       dict['icon-opacity'] = symbolPaint.iconOpacity;
@@ -93,9 +94,9 @@ class SymbolPaintJsImpl {
 }
 
 class SymbolLayoutJsImpl {
-  static toJs(SymbolLayout symbolLayout) => jsify(toDict(symbolLayout));
+  static JSAny? toJs(SymbolLayout symbolLayout) => toDict(symbolLayout).jsify();
 
-  static toDict(SymbolLayout symbolLayout) {
+  static Map<String, dynamic> toDict(SymbolLayout symbolLayout) {
     Map<String, dynamic> dict = {};
     if (symbolLayout.symbolAvoidEdges != null) {
       dict['symbol-avoid-edges'] = symbolLayout.symbolAvoidEdges;

@@ -2,7 +2,6 @@ library mapboxgl.geo.geojson;
 
 import 'dart:js_interop';
 
-import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
 class FeatureCollection extends JsObjectWrapper<FeatureCollectionJsImpl> {
@@ -54,8 +53,8 @@ class Feature extends JsObjectWrapper<FeatureJsImpl> {
         id: id ?? 0,
         geometry: geometry.jsObject,
         properties: properties == null
-            ? jsify({})
-            : jsify(properties), // TODO: Remove jsify
+            ? {}.jsify()!
+            : properties.jsify()!, // TODO: Remove jsify
         source: source,
       ));
 
@@ -70,8 +69,8 @@ class Feature extends JsObjectWrapper<FeatureJsImpl> {
         id: id ?? this.id,
         geometry: geometry != null ? geometry.jsObject : this.geometry.jsObject,
         properties: properties != null
-            ? jsify(properties)
-            : jsify(this.properties), // TODO: Remove jsify
+            ? properties.jsify()!
+            : this.properties.jsify()!, // TODO: Remove jsify
         source: source ?? this.source,
       ));
 

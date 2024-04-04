@@ -304,7 +304,7 @@ extension type CameraJsImpl._(EventedJsImpl _) implements EventedJsImpl {
   ///    padding: {top: 10, bottom:25, left: 15, right: 5}
   ///  });
   external CameraOptionsJsImpl cameraForBounds(LngLatBoundsJsImpl bounds,
-      [CameraOptionsJsImpl? options]);
+      [JSAny? options]);
 
   ///  Pans and zooms the map to contain its visible area within the specified geographical bounds.
   ///  This function will also reset the map's bearing to 0 if bearing is nonzero.

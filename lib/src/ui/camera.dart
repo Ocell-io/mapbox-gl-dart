@@ -2,7 +2,6 @@ library mapboxgl.ui.camera;
 
 import 'dart:js_interop';
 
-import 'package:js/js_util.dart';
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 import 'package:mapbox_gl_dart/src/interop/interop.dart';
 
@@ -342,13 +341,13 @@ class Camera extends Evented {
   ///  var newCameraTransform = map.cameraForBounds(bbox, {
   ///    padding: {top: 10, bottom:25, left: 15, right: 5}
   ///  });
-  CameraOptions cameraForBounds(LngLatBounds bounds, [dynamic options]) {
+  CameraOptions cameraForBounds(LngLatBounds bounds, [Object? options]) {
     if (options == null) {
       return CameraOptions.fromJsObject(
           jsObject.cameraForBounds(bounds.jsObject));
     }
     return CameraOptions.fromJsObject(jsObject.cameraForBounds(bounds.jsObject,
-        options is CameraOptions ? options.jsObject : jsify(options)));
+        options is CameraOptions ? options.jsObject : options.jsify()));
   }
 
   ///  Pans and zooms the map to contain its visible area within the specified geographical bounds.
@@ -378,7 +377,7 @@ class Camera extends Evented {
   MapboxMap fitBounds(LngLatBounds bounds,
           [Map<String, dynamic>? options, dynamic eventData]) =>
       MapboxMap.fromJsObject(
-          jsObject.fitBounds(bounds.jsObject, jsify(options ?? {}), eventData));
+          jsObject.fitBounds(bounds.jsObject, (options ?? {}).jsify(), eventData));
 
   ///  Pans, rotates and zooms the map to to fit the box made by points p0 and p1
   ///  once the map is rotated to the specified bearing. To zoom without rotating,
@@ -517,7 +516,7 @@ class Camera extends Evented {
   ///  @see [Fly to a location based on scroll position](https://www.mapbox.com/mapbox-gl-js/example/scroll-fly-to/)
   MapboxMap flyTo(dynamic options, [String? eventData]) =>
       MapboxMap.fromJsObject(jsObject
-          .flyTo(options is CameraOptions ? options.jsObject : jsify(options)));
+          .flyTo(options is CameraOptions ? options.jsObject : options.jsify()));
 
   bool isEasing() => jsObject.isEasing();
 

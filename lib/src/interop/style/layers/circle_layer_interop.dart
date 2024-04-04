@@ -1,12 +1,13 @@
 library mapboxgl.interop.style.layers.circle_layer;
 
-import 'package:js/js_util.dart';
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 
 class CircleLayerJsImpl {
-  static toJs(CircleLayer circleLayer) => jsify(toDict(circleLayer));
+  static JSAny? toJs(CircleLayer circleLayer) => toDict(circleLayer).jsify();
 
-  static toDict(CircleLayer circleLayer) {
+  static Map<String, dynamic> toDict(CircleLayer circleLayer) {
     Map<String, dynamic> dict = {
       'id': circleLayer.id,
       'type': 'circle',
@@ -27,9 +28,9 @@ class CircleLayerJsImpl {
 }
 
 class CirclePaintJsImpl {
-  static toJs(CirclePaint circlePaint) => jsify(toDict(circlePaint));
+  static JSAny? toJs(CirclePaint circlePaint) => toDict(circlePaint).jsify()!;
 
-  static toDict(CirclePaint circlePaint) {
+  static Map<String, dynamic> toDict(CirclePaint circlePaint) {
     Map<String, dynamic> dict = {};
     if (circlePaint.circleRadius != null) {
       dict['circle-radius'] = circlePaint.circleRadius;

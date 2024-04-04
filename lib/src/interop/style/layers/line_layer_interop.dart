@@ -1,12 +1,13 @@
 library mapboxgl.interop.style.layers.line_layer;
 
-import 'package:js/js_util.dart';
+import 'dart:js_interop';
+
 import 'package:mapbox_gl_dart/mapbox_gl_dart.dart';
 
 class LineLayerJsImpl {
-  static toJs(LineLayer lineLayer) => jsify(toDict(lineLayer));
+  static JSAny? toJs(LineLayer lineLayer) => toDict(lineLayer).jsify();
 
-  static toDict(LineLayer lineLayer) {
+  static Map<String, dynamic> toDict(LineLayer lineLayer) {
     Map<String, dynamic> dict = {
       'id': lineLayer.id,
       'type': 'line',
@@ -32,9 +33,9 @@ class LineLayerJsImpl {
 }
 
 class LinePaintJsImpl {
-  static toJs(LinePaint linePaint) => jsify(toDict(linePaint));
+  static JSAny? toJs(LinePaint linePaint) => toDict(linePaint).jsify();
 
-  static toDict(LinePaint linePaint) {
+  static Map<String, dynamic> toDict(LinePaint linePaint) {
     Map<String, dynamic> dict = {};
     if (linePaint.lineOpacity != null) {
       dict['line-opacity'] = linePaint.lineOpacity;
@@ -74,9 +75,9 @@ class LinePaintJsImpl {
 }
 
 class LineLayoutJsImpl {
-  static toJs(LineLayout lineLayout) => jsify(toDict(lineLayout));
+  static JSAny? toJs(LineLayout lineLayout) => toDict(lineLayout).jsify();
 
-  static toDict(LineLayout lineLayout) {
+  static Map<String, dynamic> toDict(LineLayout lineLayout) {
     Map<String, dynamic> dict = {};
     if (lineLayout.lineCap != null) {
       dict['line-cap'] = lineLayout.lineCap;
