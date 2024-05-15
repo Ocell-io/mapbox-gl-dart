@@ -1018,7 +1018,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external num clickTolerance;
 
   /// If `true`, an {@link AttributionControl} will be added to the map.
-  external bool attributionControl;
+  external bool? attributionControl;
 
   /// String or strings to show in an {@link AttributionControl}. Only applicable if `options.attributionControl` is `true`.
   /// `String` or `JSArray<JSString>`
@@ -1041,7 +1041,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external bool refreshExpiredTiles;
 
   /// If set, the map will be constrained to the given bounds.
-  external LngLatBoundsJsImpl maxBounds;
+  external LngLatBoundsJsImpl? maxBounds;
 
   /// If `true`, the "scroll to zoom" interaction is enabled. An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
   external bool scrollZoom;
@@ -1115,7 +1115,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external num pitch;
 
   /// The initial bounds of the map. If `bounds` is specified, it overrides `center` and `zoom` constructor options.
-  external LngLatBoundsJsImpl bounds;
+  external LngLatBoundsJsImpl? bounds;
 
   /// A [`fitBounds`](#map#fitbounds) options object to use _only_ when fitting the initial `bounds` provided above.
   external JSAny? fitBoundsOptions;
@@ -1128,7 +1128,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external bool renderWorldCopies;
 
   /// The maximum number of tiles stored in the tile cache for a given source. If omitted, the cache will be dynamically sized based on the current viewport.
-  external num maxTileCacheSize;
+  external num? maxTileCacheSize;
 
   /// Defines a CSS
   /// font-family for locally overriding generation of glyphs in the 'CJK Unified Ideographs', 'Hiragana', 'Katakana' and 'Hangul Syllables' ranges.
@@ -1139,7 +1139,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
 
   /// A callback run before the MapboxMap makes a request for an external URL. The callback can be used to modify the url, set headers, or set the credentials property for cross-origin requests.
   /// Expected to return an object with a `url` property and optionally `headers` and `credentials` properties.
-  external JSFunction transformRequest; //TODO: Remove JsImpl
+  external JSFunction? transformRequest; //TODO: Remove JsImpl
 
   /// If `true`, Resource Timing API information will be collected for requests made by GeoJSON and Vector Tile web workers (this information is normally inaccessible from the main Javascript thread). Information will be returned in a `resourceTiming` property of relevant `data` events.
   external bool collectResourceTiming;
@@ -1151,7 +1151,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
   external bool crossSourceCollisions;
 
   /// If specified, map will use this token instead of the one defined in accessToken.
-  external String accessToken;
+  external String? accessToken;
 
   /// A patch to apply to the default localization table for UI strings, e.g. control tooltips. The `locale` object maps namespaced UI string IDs to translated strings in the target language; see `src/ui/default_locale.js` for an example with all supported string IDs. The object may specify all UI strings (thereby adding support for a new translation) or only a subset of strings (thereby patching the default translation table).
   external JSAny? locale;
@@ -1176,7 +1176,7 @@ extension type MapOptionsJsImpl._(JSObject _) implements JSObject {
     num? maxZoom,
     num? minPitch,
     num? maxPitch,
-    JSAny style,
+    JSAny? style,
     bool? boxZoom,
     bool? dragRotate,
     JSAny? dragPan,

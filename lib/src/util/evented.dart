@@ -9,12 +9,14 @@ typedef Listener = dynamic Function(Event object);
 typedef GeoListener = JSAny Function(JSAny object);
 
 class Event extends JsObjectWrapper<EventJsImpl> {
-  String get id => jsObject.id;
+  String? get id => jsObject.id;
   String get type => jsObject.type;
   LngLat get lngLat => LngLat.fromJsObject(jsObject.lngLat);
-  List<Feature> get features => jsObject.features.toDart
-      .map((dynamic f) => Feature.fromJsObject(f))
-      .toList();
+  List<Feature> get features =>
+      jsObject.features?.toDart
+          .map((dynamic f) => Feature.fromJsObject(f))
+          .toList() ??
+      [];
   Point get point => Point.fromJsObject(jsObject.point);
 
   factory Event({
@@ -25,8 +27,8 @@ class Event extends JsObjectWrapper<EventJsImpl> {
     required Point point,
   }) =>
       Event.fromJsObject(EventJsImpl(
-        id: id,
-        type: type,
+        id: id?.toJS,
+        type: type?.toJS,
         lngLat: lngLat.jsObject,
         features: features.map((Feature f) => f.jsObject).toList().toJS,
         point: point.jsObject,
@@ -62,13 +64,17 @@ class Evented extends JsObjectWrapper<EventedJsImpl> {
         ),
       );
     }
-    return MapboxMap.fromJsObject(jsObject.on(
-      type,
-      layerIdOrListener,
-      (EventJsImpl object) {
-        listener!(Event.fromJsObject(object));
-      }.toJS,
-    ));
+
+    if (layerIdOrListener is String && listener != null) {
+      return MapboxMap.fromJsObject(jsObject.on(
+        type,
+        layerIdOrListener.toJS,
+        (EventJsImpl object) {
+          listener(Event.fromJsObject(object));
+        }.toJS,
+      ));
+    }
+    return MapboxMap.fromJsObject(jsObject as MapboxMapJsImpl);
   }
 
   ///  Removes a previously registered event listener.

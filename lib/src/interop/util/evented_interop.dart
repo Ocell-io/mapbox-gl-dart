@@ -7,15 +7,15 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 @JS()
 @anonymous
 extension type EventJsImpl._(JSObject _) implements JSObject {
-  external String get id;
+  external String? get id;
   external String get type;
   external LngLatJsImpl get lngLat;
-  external JSArray<FeatureJsImpl> get features;
+  external JSArray<FeatureJsImpl>? get features;
   external PointJsImpl get point;
 
   external factory EventJsImpl({
-    String? id,
-    String? type,
+    JSString? id,
+    JSString? type,
     LngLatJsImpl? lngLat,
     JSArray<FeatureJsImpl?>? features,
     PointJsImpl? point,
