@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <title>Display a map on a webpage</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -13,7 +13,16 @@ body { margin: 0; padding: 0; }
 </head>
 <body>
 <div id="map"></div>
-<script defer type="application/javascript" src="index.dart.js"></script>
+<!-- <script defer type="application/javascript" src="index.dart.js"></script> -->
+<script type="module">
+    import {instantiate, invoke}  from "./index.dart.mjs";
+
+    let modulePromise = WebAssembly.compileStreaming(fetch("index.dart.wasm"));
+    instantiate(modulePromise).then((instance) => {
+        invoke(instance);
+    });
+
+</script>
 
 <!-- <script>
 	mapboxgl.accessToken = 'pk.eyJ1Ijoib2NlbGwiLCJhIjoiY2pvdTE5bnhoMTc1cDNrcWlha2todGFkYiJ9.hW9Q853ix58dukevFHX1pw';

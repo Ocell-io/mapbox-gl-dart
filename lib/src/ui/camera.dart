@@ -18,11 +18,11 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 ///  @property {LngLatLike} around If `zoom` is specified, `around` determines the point around which the zoom is centered.
 
 class CameraOptions extends JsObjectWrapper<CameraOptionsJsImpl> {
-  LngLat get center => LngLat.fromJsObject(jsObject.center);
-  num get zoom => jsObject.zoom;
-  num get bearing => jsObject.bearing;
-  num get pitch => jsObject.pitch;
-  LngLat get around => LngLat.fromJsObject(jsObject.around);
+  LngLat? get center => jsObject.center != null  ? LngLat.fromJsObject(jsObject.center!) : null;
+  num? get zoom => jsObject.zoom;
+  num? get bearing => jsObject.bearing;
+  num? get pitch => jsObject.pitch;
+  LngLat? get around => jsObject.around != null ? LngLat.fromJsObject(jsObject.around!): null;
 
   factory CameraOptions({
     LngLat? center,

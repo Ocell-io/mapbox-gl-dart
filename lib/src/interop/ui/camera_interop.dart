@@ -18,11 +18,11 @@ import 'package:mapbox_gl_dart/src/interop/interop.dart';
 @JS()
 @anonymous
 extension type CameraOptionsJsImpl._(JSObject _) implements JSObject {
-  external LngLatJsImpl get center;
-  external num get zoom;
-  external num get bearing;
-  external num get pitch;
-  external LngLatJsImpl get around;
+  external LngLatJsImpl? get center;
+  external num? get zoom;
+  external num? get bearing;
+  external num? get pitch;
+  external LngLatJsImpl? get around;
 
   external factory CameraOptionsJsImpl({
     LngLatJsImpl? center,
